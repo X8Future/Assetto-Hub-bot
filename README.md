@@ -18,7 +18,7 @@ In the .env
 ```
 DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
 ```
-Go through each of the commands and fill out the ```DB_PATH =``` or ```db_path =``` sections with your hub db path
+Go through each of the commands and fill out the ```DB_PATH =``` or ```db_path =``` sections with your hub.db path
 ```
 Ex: DB_PATH = '/root/Bot-File/Hub.db'
 ```
