@@ -14,8 +14,8 @@ Currently running on an Ubuntu system but written on Windows 11
 
 
 # Configuration
-```
 In the .env
+```
 DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
 ```
 
@@ -52,10 +52,10 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 /add_player_run will add a player run to the leaderboard if you remove the run and it was legit or someone is missing a run
 
-/remove_player will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord id so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
+/remove_player will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord ID so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
 
 /Whitelist command is a WIP and is not complete and can be removed or edited to work, (adds a user to the whitelist but won't sync with the hub)
 
 
 # Customize
-You can customize almost anything you want, from text, embeds, what the bot says, and make it match your server. All code is free to use without Future Crew's knowledge or copyright. Any questions about CUSTOMIZATION you can DM me on discord @mex8future
+You can customize almost anything you want, from text to embeds to what the bot says, and make it match your server. All code is free to use without Future Crew's knowledge or copyright. Any questions about CUSTOMIZATION you can DM me on discord @mex8future
