@@ -6,7 +6,7 @@ Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserv
 # Disclaimer
 Code is made and tested in Future Crew servers™. Code is written by an AMATEUR and should be treated as such, some parts may not make sense, be redundant, or just not work (whitelist command). 
 Updates may come in the future to fix issues. 
-## USE AT YOUR OWN RISK. 
+## USE AT YOUR OWN RISK...
 
 # Tested on Windows and Ubuntu systems
 
