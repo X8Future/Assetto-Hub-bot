@@ -12,7 +12,7 @@ REQUIRED_ROLE_IDS = []  # Replace with role ID that can use this command
 def delete_user_from_players_discord(discord_id):
     """Deletes a user from the players_discord database based on their discord_id."""
     try:
-        db_path = '/root/Bot-File/Hub.db'
+        db_path = 'Path to data base file for hub. EX: /root/Bot-File/Hub.db'
 
 
         if not os.path.exists(db_path):
