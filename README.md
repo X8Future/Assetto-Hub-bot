@@ -52,14 +52,24 @@ pip install aiohttp
 pip install discord.py requests
 pip install discord.py aiosqlite pytz
 ```
+
 # Running the Bot
-You can start the Bot ``(windows)``
+
+Make sure your in the central file for the bot
+```
+cd Assetto-Hub-bot-main
+```
+Make sure you deploy the command from the main file and not from the commands file or it wont run
+
+You can start the Bot `WINDOWS`
 ```
 python bot.py
 ```
 
-For `Ubuntu` servers
-```python3 bot.py```
+For `UBUNTU` servers
+```
+python3 bot.py
+```
 
 Normally it start spitting out a few things "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time there will be a few errors just as it creates the first embeds for your server but it should be good from there.
 
