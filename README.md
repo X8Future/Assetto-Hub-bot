@@ -9,8 +9,7 @@ Code is made and tested in Future Crew servers™. Code is written by an AMATEUR
 Updates may come in the future to fix issues. 
 ## USE AT YOUR OWN RISK...
 
-# ✅ Testing
-Tested on Windows and Ubuntu systems
+Tested on `Windows` and `Ubuntu` systems
 Currently running on an Ubuntu system but written and tested on Windows 11
 
 
@@ -96,4 +95,4 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 
 # ✨ Customize
-You can customize almost anything you want, from text to embeds to what the bot says, and make it match your server. All code is free to use without Future Crew's knowledge or copyright. Any questions about CUSTOMIZATION you can DM me on discord @mex8future
+This bot is fully customizable and you can change almost anything you want. Nothing is hard coded into the bot and should run if something is changed. However changing things besides embes, text sent, and other things may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION you can DM me on discord @mex8future
