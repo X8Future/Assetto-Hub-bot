@@ -3,7 +3,7 @@ from discord.ext import commands
 import sqlite3
 from discord import app_commands
 
-DB_PATH = '/root/Bot-File/Hub.db'
+DB_PATH = 'Path to data base file for hub. EX: /root/Bot-File/Hub.db'
 
 class LeaderboardRemove(commands.Cog):
     def __init__(self, bot):
