@@ -52,11 +52,15 @@ pip install aiohttp
 pip install discord.py requests
 pip install discord.py aiosqlite pytz
 ```
-
-Then you can start the Bot with
+# Running the Bot
+You can start the Bot ``(windows)``
 ```
 python bot.py
 ```
+
+For `Ubuntu` servers
+```python3 bot.py```
+
 Normally it start spitting out a few things "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time there will be a few errors just as it creates the first embeds for your server but it should be good from there.
 
 # Commands
