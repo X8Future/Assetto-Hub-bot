@@ -18,6 +18,24 @@ In the .env
 ```
 DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
 ```
+Go through each of the commands and fill out the db path or DB Path sections with your path, 
+```
+Ex: DB_PATH = '/root/Bot-File/Hub.db'
+```
+
+Head over to [Steam api key](https://steamcommunity.com/dev/apikey), and sign up for an API key (required for the bot to check Steam ID status)
+```
+Put in Add-run.py, wlo.py, and whitelist.py
+```
+
+In the wlo.py, and whitelist_delete.py
+```
+ALLOWED_ROLE_ID = enter role ID Ex: 123456789012345678
+```
+The bot should create this file when run, but if not create the file below in the commands section
+```
+"leaderboard_message_id.json"
+```
 
 # Installation
 Install python [using](https://www.python.org/downloads/) 
