@@ -7,8 +7,8 @@ import random
 from datetime import datetime 
 import requests
 
-DB_PATH = '/root/Bot-File/Hub.db'
-STEAM_API_KEY = '90F58ADF94ED68134923FA78E07F7486'
+DB_PATH = 'Path to data base file for hub. EX: /root/Bot-File/Hub.db'
+STEAM_API_KEY = 'API Key from steam https://steamcommunity.com/dev/apikey '
 
 class LeaderboardManagement(commands.Cog):
     def __init__(self, bot):
