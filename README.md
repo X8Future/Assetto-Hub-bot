@@ -1,5 +1,4 @@
 # Assetto-Hub-bot
-[![Discord](https://img.shields.io/discord/557940238991753223.svg)](https://discord.com/invite/Z3c4yD4VGv)
 
 # Future Crew Add on bot
 
