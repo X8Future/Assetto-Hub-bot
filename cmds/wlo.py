@@ -5,13 +5,13 @@ import sqlite3
 import aiohttp
 
 # Configuration
-STEAM_API_KEY = "90F58ADF94ED68134923FA78E07F7486"  # Replace with your Steam API key
+STEAM_API_KEY = ""  # Replace with your Steam API key
 STEAM_API_URL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
 
-db_path = '/root/Bot-File/Hub.db'
+db_path = 'Path to data base file for hub. EX: /root/Bot-File/Hub.db'
 
 # The role ID that is allowed to use this command
-ALLOWED_ROLE_ID = 1196681600977616927 
+ALLOWED_ROLE_ID =  
 
 async def validate_steam_id(steam_id):
     """Validates the Steam ID by making a request to the Steam API."""
