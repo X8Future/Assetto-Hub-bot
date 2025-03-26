@@ -5,9 +5,9 @@ from discord.ext import commands, tasks
 from datetime import datetime
 import pytz
 
-DB_PATH = '/root/Bot-File/Hub.db'
-TARGET_CHANNEL_ID = 1189659213337723030
-MESSAGE_ID_PATH = "leaderboard_message_id.json"
+DB_PATH = 'Path to data base file for hub. EX: /root/Bot-File/Hub.db'
+TARGET_CHANNEL_ID = # channel id that it will send the embed when you run the command
+MESSAGE_ID_PATH = "leaderboard_message_id.json" # create this file
 MAX_FIELD_LENGTH = 1024
 
 class Leaderboard(commands.Cog):
@@ -121,7 +121,7 @@ class Leaderboard(commands.Cog):
             leaderboard_entries.append((None, None, 0, 0, "Unknown Car", None))  
 
         embed = discord.Embed(title="Cut Up Leaderboard | Top 10", color=0x6A0DAD)
-        embed.set_thumbnail(url="https://media.discordapp.net/attachments/1187595037937250315/1330833298179752036/leaderboard.png")
+        embed.set_thumbnail(url="") # Thumbnail for the embed
 
         for idx, entry in enumerate(leaderboard_entries, start=1):
             entry_id, player_id, score, duration, car_name, discord_id = entry
