@@ -1,5 +1,7 @@
 {
-    "bot_token": "MTMyOTM1MjQwMzQ0MjcyOTEwMw.GcW711.-kUQ8ZrvauA_xRP0NyBH78NyVvDoorORyeiEMs",
-    "channel_id": 123456789012345678,
-    "scores_url": "1279542696305885195"
+    "bot_token": "",
+    "channel_id": ,
+    "scores_url": ""
 }
+
+# not used in any of the configuration but ios helpful to have on hand if needed
