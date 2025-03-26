@@ -65,7 +65,6 @@ class Leaderboard(commands.Cog):
         if for_button:
             return f"Your {position} place on the leaderboard!"  # No emoji for button
         else:
-            # Keep the emoji for leaderboard embed
             suffixes = {1: "🥇1st", 2: "🥈2nd", 3: "🥉3rd"}
             return suffixes.get(position, f"🏅{position}th")
 
