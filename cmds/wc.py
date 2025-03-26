@@ -3,7 +3,7 @@ from discord.ext import commands
 import sqlite3
 
 # Path to your Hub.db
-db_path = '/root/Bot-File/Hub.db'
+db_path = 'Path to data base file for hub. EX: /root/Bot-File/Hub.db'
 
 async def setup(bot):
     @bot.tree.command(name="check_whitelist", description="Check a user's whitelist attempts and Steam ID.")
@@ -48,7 +48,6 @@ async def setup(bot):
                 )
                 await interaction.response.send_message(embed=embed, ephemeral=False)
             else:
-                # If the table doesn't exist, create the table and also add 'attempts_left' column
                 cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS players_discord (
                         discord_userid TEXT PRIMARY KEY,
