@@ -55,10 +55,15 @@ pip install discord.py aiosqlite pytz
 
 # Running the Bot
 
-Make sure your in the central file for the bot
+Make sure you're in the central file for the bot `Windows`
 ```
-cd Assetto-Hub-bot-main
+cd ..\Assetto-Hub-bot-main
 ```
+`Ubuntu`
+```
+cd ../Assetto-Hub-bot-main
+```
+
 Make sure you deploy the command from the main file and not from the commands file or it wont run
 
 You can start the Bot `WINDOWS`
