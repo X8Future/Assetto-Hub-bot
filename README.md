@@ -64,7 +64,7 @@ cd ..\Assetto-Hub-bot-main
 cd ../Assetto-Hub-bot-main
 ```
 
-Make sure you deploy the command from the main file and not from the commands file or it wont run
+Make sure you deploy the command from the main file and not from the commands file or it won't run
 
 You can start the Bot `WINDOWS`
 ```
@@ -95,4 +95,4 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 
 # ✨ Customize
-This bot is fully customizable and you can change almost anything you want. Nothing is hard coded into the bot and should run if something is changed. However changing things besides embes, text sent, and other things may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION you can DM me on discord @mex8future
+This bot is fully customizable and you can change almost anything you want. Nothing is hard coded into the bot and should run if something is changed. However changing things besides embeds, messages sent, locations to where things are going, or other modifications in which the command itself is not changing may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION you can DM me on discord @mex8future
