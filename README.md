@@ -5,12 +5,12 @@ An Assetto Corsa bot that connects to your Assetto Server Hub to make custom lea
 Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserver.org/patreon-docs/plugins/PatreonHubPlugin). Must have that to use the bot [information here](https://assettoserver.org/patreon-docs/assettoserver-hub/)
 # Disclaimer
 Code is made and tested in Future Crew servers™. Code is written by an AMATEUR and should be treated as such, some parts may not make sense, be redundant, or just not work (whitelist command). 
-### USE AT YOUR OWN RISK. 
 Updates may come in the future to fix issues. 
+## USE AT YOUR OWN RISK. 
 
-## Tested on Windows and Ubuntu systems
+# Tested on Windows and Ubuntu systems
 
-Currently running on an Ubuntu system but written on Windows 11
+Currently running on an Ubuntu system but written and tested on Windows 11
 
 
 # Configuration
