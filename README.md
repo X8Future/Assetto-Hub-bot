@@ -3,17 +3,18 @@
 An Assetto Corsa bot that connects to your Assetto Server Hub to make custom leaderboards, whitelist edits, and player count forums with the latest Discord.py
 
 Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserver.org/patreon-docs/plugins/PatreonHubPlugin). Must have that to use the bot [information here](https://assettoserver.org/patreon-docs/assettoserver-hub/)
-# Disclaimer
+
+# ❗ Disclaimer
 Code is made and tested in Future Crew servers™. Code is written by an AMATEUR and should be treated as such, some parts may not make sense, be redundant, or just not work (whitelist command). 
 Updates may come in the future to fix issues. 
 ## USE AT YOUR OWN RISK...
 
-# Tested on Windows and Ubuntu systems
-
+# ✅ Testing
+Tested on Windows and Ubuntu systems
 Currently running on an Ubuntu system but written and tested on Windows 11
 
 
-# Configuration
+# ⚙️ Configuration
 In the .env
 ```
 DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
@@ -37,7 +38,7 @@ The bot should create this file when run, but if not create the file below in th
 "leaderboard_message_id.json"
 ```
 
-# Installation
+# ⏬ Installation
 Install python [using](https://www.python.org/downloads/) 
 For Ubuntu: sudo apt update && sudo apt install python3
 
@@ -53,7 +54,7 @@ pip install discord.py requests
 pip install discord.py aiosqlite pytz
 ```
 
-# Running the Bot
+# 🤖 Running the Bot
 
 Make sure you're in the central file for the bot `Windows`
 ```
@@ -78,7 +79,7 @@ python3 bot.py
 
 Normally it start spitting out a few things "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time there will be a few errors just as it creates the first embeds for your server but it should be good from there.
 
-# Commands
+# 📝 Commands
 With /leaderboard you can add a leaderboard to your custom channel
 
 With /wlo you can override someone's steam ID in the whitelist 
@@ -94,5 +95,5 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 /Whitelist command is a WIP and is not complete and can be removed or edited to work, (adds a user to the whitelist but won't sync with the hub)
 
 
-# Customize
+# ✨ Customize
 You can customize almost anything you want, from text to embeds to what the bot says, and make it match your server. All code is free to use without Future Crew's knowledge or copyright. Any questions about CUSTOMIZATION you can DM me on discord @mex8future
