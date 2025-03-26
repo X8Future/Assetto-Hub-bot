@@ -1,5 +1,3 @@
-# Assetto-Hub-bot
-
 # Future Crew Add on bot
 
 An Assetto Corsa bot that connects to your Assetto Server Hub to make custom leaderboards, whitelist edits, and player count forums with the latest Discord.py
