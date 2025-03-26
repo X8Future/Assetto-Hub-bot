@@ -28,7 +28,7 @@ Head over to [Steam api key](https://steamcommunity.com/dev/apikey), and sign up
 Put in Add-run.py, wlo.py, and whitelist.py
 ```
 
-In the wlo.py, and whitelist_delete.py
+In the ``wlo.py``, and ``whitelist_delete.py``
 ```
 ALLOWED_ROLE_ID = enter role ID Ex: 123456789012345678
 ```
