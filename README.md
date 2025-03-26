@@ -9,7 +9,7 @@ Code is made and tested in Future Crew servers™. Code is written by an AMATEUR
 Updates may come in the future to fix issues. 
 ### USE AT YOUR OWN RISK...
 
-Tested on `Windows` and `Ubuntu` systems
+Tested on `Windows` and `Ubuntu` systems.
 Currently running on an Ubuntu system but written and tested on Windows 11
 
 
