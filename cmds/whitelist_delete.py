@@ -4,11 +4,10 @@ import sqlite3
 import logging
 import os
 
-# Set up logging
 logging.basicConfig(level=logging.INFO)
 
 DB_PATH = '/root/Bot-File/Hub.db'
-REQUIRED_ROLE_IDS = [1251377219910242365]
+REQUIRED_ROLE_IDS = []
 
 class DatabaseAdmin(commands.Cog):
     def __init__(self, bot: commands.Bot):
