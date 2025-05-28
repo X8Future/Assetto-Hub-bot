@@ -6,12 +6,11 @@ from datetime import datetime
 import pytz
 
 DB_PATH = '/root/Bot-File/Hub.db'
-TARGET_CHANNEL_ID = 1189659213337723030
+TARGET_CHANNEL_ID = # Channel you want the leaderboard in 
 MESSAGE_ID_PATH = "leaderboard_message_id.json"
 MAX_FIELD_LENGTH = 1024
 
-# Add your allowed role IDs here (replace with actual role IDs)
-ALLOWED_ROLE_IDS = [1251377219910242365]
+ALLOWED_ROLE_IDS = []
 
 class Leaderboard(commands.Cog):
     def __init__(self, bot):
@@ -195,7 +194,6 @@ class FindScoreButton(discord.ui.Button):
                 player_id = result[0]
                 leaderboard_entries = await self.leaderboard.fetch_leaderboard()
 
-                # Step 2: Find their top leaderboard entry and position
                 entry_found = None
                 user_position = "Unranked"
                 for idx, entry in enumerate(leaderboard_entries, start=1):
@@ -214,7 +212,6 @@ class FindScoreButton(discord.ui.Button):
                 minutes, seconds = divmod(duration // 1000, 60)
                 formatted_duration = f"{minutes}m {seconds}s"
 
-                # Optional: get date from DB
                 await cursor.execute("""SELECT updated_at FROM overtake_n_leaderboard_entries 
                                         WHERE player_id = ? ORDER BY score DESC LIMIT 1""", (player_id,))
                 updated_at_result = await cursor.fetchone()
