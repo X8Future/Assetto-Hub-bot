@@ -103,7 +103,7 @@ class ServerEmbedUpdater(commands.Cog):
         server_data = []
         for url in apis:
             data = await self.fetch_server_data(url)
-            server_data.append((data, url))  # append even if data is None
+            server_data.append((data, url))
 
         embed = await self.create_embed(
             server_data=server_data,
