@@ -5,10 +5,13 @@ from discord.ext import commands, tasks
 from datetime import datetime
 import pytz
 
-DB_PATH = 'Path to data base file for hub. EX: /root/Bot-File/Hub.db'
-TARGET_CHANNEL_ID = # channel id that it will send the embed when you run the command
-MESSAGE_ID_PATH = "leaderboard_message_id.json" # create this file
+DB_PATH = '/root/Bot-File/Hub.db'
+TARGET_CHANNEL_ID = 1189659213337723030
+MESSAGE_ID_PATH = "leaderboard_message_id.json"
 MAX_FIELD_LENGTH = 1024
+
+# Add your allowed role IDs here (replace with actual role IDs)
+ALLOWED_ROLE_IDS = [1251377219910242365]
 
 class Leaderboard(commands.Cog):
     def __init__(self, bot):
@@ -65,6 +68,7 @@ class Leaderboard(commands.Cog):
         if for_button:
             return f"Your {position} place on the leaderboard!"  # No emoji for button
         else:
+            # Keep the emoji for leaderboard embed
             suffixes = {1: "🥇1st", 2: "🥈2nd", 3: "🥉3rd"}
             return suffixes.get(position, f"🏅{position}th")
 
@@ -92,7 +96,11 @@ class Leaderboard(commands.Cog):
 
     @discord.app_commands.command(name="leaderboard", description="Post the leaderboard embed.")
     async def leaderboard(self, interaction: discord.Interaction):
-        """Handles the leaderboard command."""
+        # Permission check based on roles
+        if not any(role.id in ALLOWED_ROLE_IDS for role in interaction.user.roles):
+            await interaction.response.send_message("You don't have permission to use this command.", ephemeral=True)
+            return
+
         channel = self.bot.get_channel(TARGET_CHANNEL_ID)
         leaderboard_entries = await self.fetch_leaderboard()
 
@@ -120,7 +128,7 @@ class Leaderboard(commands.Cog):
             leaderboard_entries.append((None, None, 0, 0, "Unknown Car", None))  
 
         embed = discord.Embed(title="Cut Up Leaderboard | Top 10", color=0x6A0DAD)
-        embed.set_thumbnail(url="") # Thumbnail for the embed
+        embed.set_thumbnail(url="https://media.discordapp.net/attachments/1187595037937250315/1330833298179752036/leaderboard.png")
 
         for idx, entry in enumerate(leaderboard_entries, start=1):
             entry_id, player_id, score, duration, car_name, discord_id = entry
@@ -170,12 +178,13 @@ class FindScoreButton(discord.ui.Button):
     def __init__(self, leaderboard: Leaderboard):
         super().__init__(label="⭐ Find My Score", style=discord.ButtonStyle.primary)
         self.leaderboard = leaderboard
-
     async def callback(self, interaction: discord.Interaction):
         discord_id = interaction.user.id
         try:
             async with aiosqlite.connect(DB_PATH) as conn:
                 cursor = await conn.cursor()
+
+                # Step 1: Get player_id from players_discord
                 await cursor.execute("SELECT player_id FROM players_discord WHERE discord_userid = ?", (discord_id,))
                 result = await cursor.fetchone()
 
@@ -184,37 +193,32 @@ class FindScoreButton(discord.ui.Button):
                     return
 
                 player_id = result[0]
-
                 leaderboard_entries = await self.leaderboard.fetch_leaderboard()
 
-                await cursor.execute(""" 
-                    SELECT score, duration, c.friendly_name, o.updated_at
-                    FROM overtake_n_leaderboard_entries o
-                    LEFT JOIN cars c ON o.car_id = c.car_id
-                    WHERE o.player_id = ? 
-                    ORDER BY o.score DESC LIMIT 1
-                """, (player_id,))
-                leaderboard_result = await cursor.fetchone()
+                # Step 2: Find their top leaderboard entry and position
+                entry_found = None
+                user_position = "Unranked"
+                for idx, entry in enumerate(leaderboard_entries, start=1):
+                    if entry[1] == player_id:
+                        entry_found = entry
+                        user_position = await self.leaderboard.get_position_suffix(idx, for_button=True)
+                        break
 
-                if not leaderboard_result:
+                if not entry_found:
                     await interaction.response.send_message("No runs found. Try playing first!", ephemeral=True)
                     return
 
-                score, duration, car_name, updated_at = leaderboard_result
+                _, _, score, duration, car_name, _ = entry_found
 
                 formatted_score = f"{score:,}".replace(",", ".")
                 minutes, seconds = divmod(duration // 1000, 60)
                 formatted_duration = f"{minutes}m {seconds}s"
-                run_date = datetime.strptime(updated_at, "%Y-%m-%d %H:%M:%S").strftime("%B %d %Y")
 
-                user_position = None
-                for idx, entry in enumerate(leaderboard_entries, start=1):
-                    if entry[1] == player_id: 
-                        user_position = await self.leaderboard.get_position_suffix(idx, for_button=True)
-                        break
-
-                if user_position is None:
-                    user_position = "Unranked"
+                # Optional: get date from DB
+                await cursor.execute("""SELECT updated_at FROM overtake_n_leaderboard_entries 
+                                        WHERE player_id = ? ORDER BY score DESC LIMIT 1""", (player_id,))
+                updated_at_result = await cursor.fetchone()
+                run_date = datetime.strptime(updated_at_result[0], "%Y-%m-%d %H:%M:%S").strftime("%B %d %Y") if updated_at_result else "Unknown"
 
                 embed = discord.Embed(
                     title="Your place on the leaderboard",
