@@ -36,6 +36,9 @@ The bot should create this file when run, but if not create the file below in th
 ```
 "leaderboard_message_id.json"
 ```
+```
+Embeds can be edited via there messages and what you want to say
+```
 
 # ⏬ Installation
 Install python [using](https://www.python.org/downloads/) 
