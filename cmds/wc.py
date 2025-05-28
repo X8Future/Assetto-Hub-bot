@@ -3,17 +3,14 @@ from discord.ext import commands
 import sqlite3
 import os
 
-# Database path
 DB_PATH = '/root/Bot-File/Hub.db'
 
-# --- Slash Command Setup ---
 async def setup(bot: commands.Bot):
     @bot.tree.command(
         name="check_whitelist",
         description="Check a user's whitelist attempts and Steam ID."
     )
     async def check_whitelist(interaction: discord.Interaction, user: discord.User):
-        # Block usage in DMs
         if interaction.guild is None:
             await interaction.response.send_message("❌ This command can only be used in a server.", ephemeral=True)
             return
@@ -26,7 +23,6 @@ async def setup(bot: commands.Bot):
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
 
-            # Ensure both tables exist
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS players_discord (
                     discord_userid TEXT PRIMARY KEY,
@@ -41,14 +37,12 @@ async def setup(bot: commands.Bot):
             """)
             conn.commit()
 
-            # Lookup user in players_discord
             cursor.execute("SELECT player_id FROM players_discord WHERE discord_userid = ?", (str(user.id),))
             row = cursor.fetchone()
 
             if row:
                 steam_id = row[0]
 
-                # Get attempts or default to 2
                 cursor.execute("SELECT attempts_left FROM whitelist_attempts WHERE discord_userid = ?", (str(user.id),))
                 attempts = cursor.fetchone()
                 attempts_left = attempts[0] if attempts else 2
