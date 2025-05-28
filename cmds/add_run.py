@@ -8,10 +8,9 @@ from datetime import datetime
 import requests
 
 DB_PATH = '/root/Bot-File/Hub.db'
-STEAM_API_KEY = '90F58ADF94ED68134923FA78E07F7486'
+STEAM_API_KEY = ''
 
-# Allowed role IDs
-ALLOWED_ROLE_IDS = [1251377219910242365]
+ALLOWED_ROLE_IDS = []
 
 class LeaderboardManagement(commands.Cog):
     def __init__(self, bot):
