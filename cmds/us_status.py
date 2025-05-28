@@ -5,33 +5,33 @@ import aiohttp
 class ForumUpdater(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.forum_channel_id = 1268666206810931210
+        self.forum_channel_id =
         self.api_urls = [
-            "http://5.78.46.52:8081/INFO",
-            "http://5.78.46.52:8080/INFO"
+            "http://.../INFO",
+            "http://.../INFO"
         ]
         self.image_links = {
-            0: "https://media.discordapp.net/attachments/1187595037937250315/1340159084732878930/0.png",
-            1: "https://media.discordapp.net/attachments/1187595037937250315/1340159085475008512/1.png",
-            2: "https://media.discordapp.net/attachments/1187595037937250315/1340159086163132446/2.png",
-            3: "https://media.discordapp.net/attachments/1187595037937250315/1340159079368232980/3.png",
-            4: "https://media.discordapp.net/attachments/1187595037937250315/1340159080257421353/4.png",
-            5: "https://media.discordapp.net/attachments/1187595037937250315/1340159080916058163/5.png",
-            6: "https://media.discordapp.net/attachments/1187595037937250315/1340159081737883729/6.png",
-            7: "https://media.discordapp.net/attachments/1187595037937250315/1340159082463494205/7.png",
-            8: "https://media.discordapp.net/attachments/1187595037937250315/1340159083222925312/8.png",
-            9: "https://media.discordapp.net/attachments/1187595037937250315/1340159084078301216/9.png",
-            10: "https://media.discordapp.net/attachments/1187595037937250315/1340159296037589074/10.png",
-            11: "https://media.discordapp.net/attachments/1187595037937250315/1340159296809205840/11.png",
-            12: "https://media.discordapp.net/attachments/1187595037937250315/1340159297559990292/12.png",
-            13: "https://media.discordapp.net/attachments/1187595037937250315/1340159294393421864/13.png",
-            14: "https://media.discordapp.net/attachments/1187595037937250315/1340159295211175977/14.png",
-            15: "https://media.discordapp.net/attachments/1187595037937250315/1340159299120267328/15.png",
-            16: "https://media.discordapp.net/attachments/1187595037937250315/1340159299888087072/16.png",
-            17: "https://media.discordapp.net/attachments/1187595037937250315/1340159300634542141/17.png",
-            18: "https://media.discordapp.net/attachments/1187595037937250315/1340159301364219999/18.png",
-            19: "https://media.discordapp.net/attachments/1187595037937250315/1340159298289926185/19.png",
-            20: "https://media.discordapp.net/attachments/1187595037937250315/1340159290971000941/20.png",
+            0: "",
+            1: "",
+            2: "",
+            3: "",
+            4: "",
+            5: "",
+            6: "",
+            7: "",
+            8: "",
+            9: "",
+            10: "",
+            11: "",
+            12: "",
+            13: "",
+            14: "",
+            15: "",
+            16: "",
+            17: "",
+            18: "",
+            19: "",
+            20: "",
         }
         self.update_forum.start()
 
