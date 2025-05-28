@@ -4,7 +4,7 @@ import sqlite3
 from discord import app_commands
 
 DB_PATH = '/root/Bot-File/Hub.db'
-ALLOWED_ROLE_IDS = [1251377219910242365]
+ALLOWED_ROLE_IDS = []
 
 class LeaderboardRemove(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -29,7 +29,6 @@ class LeaderboardRemove(commands.Cog):
         player_id: str = None,
         discord_user: discord.User = None
     ):
-        # Permission check
         if interaction.guild is None:
             await interaction.response.send_message("❌ This command can only be used in a server.", ephemeral=True)
             return
@@ -41,7 +40,6 @@ class LeaderboardRemove(commands.Cog):
 
         await interaction.response.defer(ephemeral=True)  # Defer early to allow DB time
 
-        # Get player_id from discord_user if selected
         if option.value == "discord_user":
             if not discord_user:
                 await interaction.followup.send("❌ Please provide a Discord user.", ephemeral=True)
@@ -68,12 +66,10 @@ class LeaderboardRemove(commands.Cog):
                 await interaction.followup.send("❌ Please provide a Steam ID.", ephemeral=True)
                 return
 
-        # Final check
         if not player_id:
             await interaction.followup.send("⚠️ No player ID resolved. Cannot proceed.", ephemeral=True)
             return
 
-        # Remove the player from the leaderboard
         try:
             with sqlite3.connect(DB_PATH) as conn:
                 cursor = conn.cursor()
@@ -92,7 +88,6 @@ class LeaderboardRemove(commands.Cog):
             await interaction.followup.send("⚠️ Error removing player from the leaderboard.", ephemeral=True)
             return
 
-        # Try to DM the user if removed via Discord
         if option.value == "discord_user" and discord_user:
             try:
                 await discord_user.send(
@@ -106,7 +101,6 @@ class LeaderboardRemove(commands.Cog):
 
         await interaction.followup.send(f"✅ Player with Steam ID `{player_id}` has been removed from the leaderboard.", ephemeral=True)
 
-# Setup function
 async def setup(bot: commands.Bot):
     await bot.add_cog(LeaderboardRemove(bot))
     await bot.tree.sync()
