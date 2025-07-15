@@ -20,6 +20,7 @@ async def load_extensions():
     await bot.load_extension("cmds.player_status")
     await bot.load_extension("cmds.user_remove")
     await bot.load_extension("cmds.add_run")
+    await bot.load_extension("cmds.server_embed")
 @bot.event
 async def on_ready():
     await load_extensions()
@@ -38,6 +39,7 @@ async def load_extensions():
     await bot.load_extension("cmds.player_status")
     await bot.load_extension("cmds.add_run")
     await bot.load_extension("cmds.remove_player")
+    await bot.load_extension("cmds.server_embed")
     await bot.load_extension("cmds.server_embed")
 
 @bot.event
