@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands, tasks
 from discord import app_commands
 import aiohttp
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 import json
 import os
 
@@ -10,39 +10,15 @@ PERSIST_FILE = "server_embeds.json"
 
 class ServerEmbedUpdater(commands.Cog):
     WEATHER_MAP = {
-        "LightThunderstorm": "⛈️ Light Thunderstorm",
-        "Thunderstorm": "🌩️ Thunderstorm",
-        "HeavyThunderstorm": "🌩️ Heavy Thunderstorm",
-        "LightDrizzle": "🌦️ Light Drizzle",
-        "Drizzle": "🌦️ Drizzle",
-        "HeavyDrizzle": "🌧️ Heavy Drizzle",
-        "LightRain": "🌦️ Light Rain",
-        "Rain": "🌧️ Rain",
-        "HeavyRain": "🌧️ Heavy Rain",
-        "LightSnow": "🌨️ Light Snow",
-        "Snow": "❄️ Snow",
-        "HeavySnow": "❄️ Heavy Snow",
-        "LightSleet": "🌨️ Light Sleet",
-        "Sleet": "🌨️ Sleet",
-        "HeavySleet": "🌨️ Heavy Sleet",
-        "Clear": "☀️ Clear",
-        "FewClouds": "🌤️ Few Clouds",
-        "ScatteredClouds": "⛅ Scattered Clouds",
-        "BrokenClouds": "🌥️ Broken Clouds",
-        "OvercastClouds": "☁️ Overcast Clouds",
-        "Fog": "🌫️ Fog",
-        "Mist": "🌫️ Mist",
-        "Smoke": "💨 Smoke",
-        "Haze": "🌫️ Haze",
-        "Sand": "🏜️ Sand",
-        "Dust": "🌪️ Dust",
-        "Squalls": "🌬️ Squalls",
-        "Tornado": "🌪️ Tornado",
-        "Hurricane": "🌀 Hurricane",
-        "Cold": "🥶 Cold",
-        "Hot": "🥵 Hot",
-        "Windy": "🌬️ Windy",
-        "Hail": "🌨️ Hail"
+        "Clear": "☀️ Clear", "FewClouds": "🌤️ Few Clouds", "ScatteredClouds": "⛅ Scattered Clouds",
+        "BrokenClouds": "🌥️ Broken Clouds", "OvercastClouds": "☁️ Overcast Clouds", "Fog": "🌫️ Fog",
+        "Mist": "🌫️ Mist", "Smoke": "💨 Smoke", "Haze": "🌫️ Haze", "Sand": "🏜️ Sand", "Dust": "🌪️ Dust",
+        "Squalls": "🌬️ Squalls", "Tornado": "🌪️ Tornado", "Hurricane": "🌀 Hurricane", "Cold": "🥶 Cold",
+        "Hot": "🥵 Hot", "Windy": "🌬️ Windy", "Hail": "🌨️ Hail", "LightThunderstorm": "⛈️ Light Thunderstorm",
+        "Thunderstorm": "🌩️ Thunderstorm", "HeavyThunderstorm": "🌩️ Heavy Thunderstorm", "LightDrizzle": "🌦️ Light Drizzle",
+        "Drizzle": "🌦️ Drizzle", "HeavyDrizzle": "🌧️ Heavy Drizzle", "LightRain": "🌦️ Light Rain", 
+        "Rain": "🌧️ Rain", "HeavyRain": "🌧️ Heavy Rain", "LightSnow": "🌨️ Light Snow", "Snow": "❄️ Snow",
+        "HeavySnow": "❄️ Heavy Snow", "LightSleet": "🌨️ Light Sleet", "Sleet": "🌨️ Sleet", "HeavySleet": "🌨️ Heavy Sleet"
     }
 
     def __init__(self, bot):
@@ -64,6 +40,15 @@ class ServerEmbedUpdater(commands.Cog):
                 except Exception:
                     self.active_embeds = []
 
+    def convert_invite_to_api(self, invite_url: str) -> str:
+        parsed = urlparse(invite_url)
+        query = parse_qs(parsed.query)
+        ip = query.get("ip", [None])[0]
+        port = query.get("httpPort", [None])[0]
+        if ip and port:
+            return f"http://{ip}:{port}/api/details"
+        return None
+
     async def restore_embeds(self):
         for embed_cfg in self.active_embeds:
             try:
@@ -71,12 +56,12 @@ class ServerEmbedUpdater(commands.Cog):
                 if not channel:
                     continue
                 await channel.fetch_message(embed_cfg["message_id"])
-            except Exception as e:
-                print(f"[ERROR] Restoring embed failed: {e}")
+            except:
+                pass
 
-    @app_commands.command(name="serverembed", description="Track up to 5 servers by API URLs")
+    @app_commands.command(name="serverembed", description="Track up to 5 servers by invite URLs")
     async def server_embed(self, interaction: discord.Interaction,
-                           api1: str, api2: str = None, api3: str = None, api4: str = None, api5: str = None,
+                           invite1: str, invite2: str = None, invite3: str = None, invite4: str = None, invite5: str = None,
                            title: str = "Live Server Status",
                            name1: str = None, name2: str = None, name3: str = None, name4: str = None, name5: str = None,
                            color: str = None,
@@ -87,23 +72,18 @@ class ServerEmbedUpdater(commands.Cog):
                            vip_only4: bool = False, vip_only5: bool = False):
         await interaction.response.defer(ephemeral=True)
 
-        apis = [api for api in [api1, api2, api3, api4, api5] if api]
-        custom_names = [name.strip() if name else None for name in [name1, name2, name3, name4, name5]][:len(apis)]
-        vip_slots_enabled = [vip_slots1, vip_slots2, vip_slots3, vip_slots4, vip_slots5][:len(apis)]
-        vip_only_flags = [vip_only1, vip_only2, vip_only3, vip_only4, vip_only5][:len(apis)]
+        invite_links = [url for url in [invite1, invite2, invite3, invite4, invite5] if url]
+        custom_names = [name.strip() if name else None for name in [name1, name2, name3, name4, name5]][:len(invite_links)]
+        vip_slots_enabled = [vip_slots1, vip_slots2, vip_slots3, vip_slots4, vip_slots5][:len(invite_links)]
+        vip_only_flags = [vip_only1, vip_only2, vip_only3, vip_only4, vip_only5][:len(invite_links)]
 
-        if color:
-            try:
-                embed_color = int(color.lstrip('#'), 16)
-            except Exception:
-                embed_color = 0x42E3F5
-        else:
-            embed_color = 0x42E3F5
+        embed_color = int(color.lstrip('#'), 16) if color else 0x42E3F5
 
         server_data = []
-        for url in apis:
-            data = await self.fetch_server_data(url)
-            server_data.append((data, url))
+        for invite in invite_links:
+            api = self.convert_invite_to_api(invite)
+            data = await self.fetch_server_data(api) if api else None
+            server_data.append((data, invite))
 
         embed = await self.create_embed(
             server_data=server_data,
@@ -120,26 +100,27 @@ class ServerEmbedUpdater(commands.Cog):
         self.active_embeds.append({
             "channel_id": interaction.channel.id,
             "message_id": sent_message.id,
-            "api_links": apis,
+            "invite_links": invite_links,
             "vip_slots_enabled": vip_slots_enabled,
             "vip_only": vip_only_flags,
             "custom_names": custom_names,
             "custom_title": title,
             "embed_color": embed_color,
-            "thumbnail_url": thumbnail
+            "thumbnail_url": thumbnail,
+            "thread_id": interaction.channel.id if isinstance(interaction.channel, discord.Thread) else None
         })
         self.save_embeds_to_file()
 
         await interaction.followup.send("Server embed created.", ephemeral=True)
 
-    async def fetch_server_data(self, url):
+    async def fetch_server_data(self, api_url):
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.get(url) as resp:
+                async with session.get(api_url) as resp:
                     if resp.status == 200:
                         return await resp.json()
-        except Exception as e:
-            print(f"Error fetching data from {url}: {e}")
+        except:
+            pass
         return None
 
     def format_timeofday(self, timeofday):
@@ -173,7 +154,7 @@ class ServerEmbedUpdater(commands.Cog):
             else:
                 return "🟢"
 
-        for idx, (data, api_url) in enumerate(server_data):
+        for idx, (data, invite_url) in enumerate(server_data):
             address = custom_names[idx] or (data.get("ServerName") if data else "Unknown Server")
             if not data:
                 embed.add_field(
@@ -187,20 +168,20 @@ class ServerEmbedUpdater(commands.Cog):
             public_slots = sum(1 for car in cars if car.get("IsEntryList"))
             public_connected = sum(1 for car in cars if car.get("IsEntryList") and car.get("IsConnected"))
 
-            total_vip = vip_connected = None
+            total_vip = vip_connected = 0
             if vip_only[idx] or vip_slots_enabled[idx]:
-                total_vip = sum(1 for car in cars if not car.get("IsEntryList") and "traffic" not in car.get("Model", "").lower())
-                vip_connected = sum(1 for car in cars if not car.get("IsEntryList") and car.get("IsConnected") and "traffic" not in car.get("Model", "").lower())
+                total_vip = sum(
+                    1 for car in cars
+                    if not car.get("IsEntryList") and "traffic" not in (car.get("Model") or "").lower()
+                )
+                vip_connected = sum(
+                    1 for car in cars
+                    if not car.get("IsEntryList") and car.get("IsConnected") and "traffic" not in (car.get("Model") or "").lower()
+                )
 
             timeofday = data.get("timeofday")
             weather_id = data.get("currentWeatherId")
             weather_display = self.WEATHER_MAP.get(weather_id)
-
-            parsed = urlparse(api_url)
-            ip_port = parsed.netloc.split(":")
-            ip = ip_port[0]
-            port = ip_port[1] if len(ip_port) > 1 else "8081"
-            join_link = f"https://acstuff.ru/s/q:race/online/join?ip={ip}&httpPort={port}"
 
             lines = []
             if vip_only[idx]:
@@ -219,7 +200,7 @@ class ServerEmbedUpdater(commands.Cog):
                 lines.append(self.format_timeofday(timeofday))
             if weather_display:
                 lines.append(weather_display)
-            lines.append(f"▶ [ENTER SERVER HERE]({join_link})")
+            lines.append(f"▶ [ENTER SERVER HERE]({invite_url})")
 
             embed.add_field(name=f"{number_emojis[idx]} {address}", value="\n".join(lines), inline=False)
 
@@ -236,12 +217,19 @@ class ServerEmbedUpdater(commands.Cog):
                 if not channel:
                     to_remove.append(i)
                     continue
+
+                if isinstance(channel, discord.Thread):
+                    if channel.locked or channel.archived:
+                        continue
+
                 message = await channel.fetch_message(embed_cfg["message_id"])
                 if not message:
                     to_remove.append(i)
                     continue
 
-                api_links = embed_cfg["api_links"]
+                invite_links = embed_cfg["invite_links"]
+                api_links = [self.convert_invite_to_api(inv) for inv in invite_links]
+
                 vip_slots = embed_cfg["vip_slots_enabled"]
                 vip_only = embed_cfg.get("vip_only", [False] * len(api_links))
                 custom_names = embed_cfg["custom_names"]
@@ -250,9 +238,9 @@ class ServerEmbedUpdater(commands.Cog):
                 thumbnail = embed_cfg.get("thumbnail_url")
 
                 server_data = []
-                for url in api_links:
-                    data = await self.fetch_server_data(url)
-                    server_data.append((data, url))
+                for api, invite in zip(api_links, invite_links):
+                    data = await self.fetch_server_data(api) if api else None
+                    server_data.append((data, invite))
 
                 new_embed = await self.create_embed(
                     server_data=server_data,
@@ -265,8 +253,8 @@ class ServerEmbedUpdater(commands.Cog):
                 )
                 await message.edit(embed=new_embed)
 
-            except Exception as e:
-                print(f"[ERROR] Updating embed failed: {e}")
+            except:
+                to_remove.append(i)
 
         for idx in reversed(to_remove):
             del self.active_embeds[idx]
@@ -277,6 +265,38 @@ class ServerEmbedUpdater(commands.Cog):
     async def before_update(self):
         await self.bot.wait_until_ready()
 
+    @commands.Cog.listener()
+    async def on_thread_update(self, before: discord.Thread, after: discord.Thread):
+        if before.locked and not after.locked:
+            for embed_cfg in self.active_embeds:
+                if embed_cfg.get("thread_id") == after.id:
+                    await self.force_update_embed(after.id)
+                    break
+
+    async def force_update_embed(self, thread_id):
+        for embed_cfg in self.active_embeds:
+            if embed_cfg.get("thread_id") != thread_id:
+                continue
+            try:
+                channel = self.bot.get_channel(embed_cfg["channel_id"])
+                if not channel:
+                    continue
+                message = await channel.fetch_message(embed_cfg["message_id"])
+                invite_links = embed_cfg["invite_links"]
+                api_links = [self.convert_invite_to_api(inv) for inv in invite_links]
+                server_data = [(await self.fetch_server_data(api), invite) for api, invite in zip(api_links, invite_links)]
+                new_embed = await self.create_embed(
+                    server_data=server_data,
+                    custom_names=embed_cfg["custom_names"],
+                    vip_slots_enabled=embed_cfg["vip_slots_enabled"],
+                    vip_only=embed_cfg.get("vip_only", []),
+                    title=embed_cfg["custom_title"],
+                    color=embed_cfg["embed_color"],
+                    thumbnail=embed_cfg.get("thumbnail_url")
+                )
+                await message.edit(embed=new_embed)
+            except:
+                pass
 
 async def setup(bot):
     await bot.add_cog(ServerEmbedUpdater(bot))
