@@ -7,8 +7,7 @@ import pytz
 from discord.ext import commands, tasks
 from discord import app_commands, Interaction
 
-DB_PATH = '/root/Bot-File/Hub.db'
-TARGET_CHANNEL_ID = 1189659213337723030
+DB_PATH = ''
 MESSAGE_ID_PATH = "leaderboard_message_id.json"
 MAX_FIELD_LENGTH = 1024
 
