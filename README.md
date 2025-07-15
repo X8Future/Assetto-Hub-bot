@@ -79,12 +79,12 @@ For `UBUNTU` servers
 python3 bot.py
 ```
 
-Normally it start spitting out a few things "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time there will be a few errors just as it creates the first embeds for your server but it should be good from there.
+Normally, it start spitting out a few things, "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time, there will be a few errors just as it creates the first embeds for your server, but it should be good from there.
 
 # 📝 Commands
 With /leaderboard you can add a leaderboard to your custom channel
 
-With /wlo you can override someone's steam ID in the whitelist 
+With /wlo you can override someone's Steam ID in the whitelist 
 
 With /check_whitelist you can check someone's status on whitelist to see what ID they connected to or if they have attempted to whitelist
 
@@ -94,10 +94,9 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 /remove_player will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord ID so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
 
-/serverembed will allow you to add a server embed with up to 5 servers (you can add more api slots). API's can be found from http://IP:Port/api/details of your servers. Api1 is the first server, and so on, same with name1 and vip_slots1. VIP slots will show VIP slots if any, if there are no reserved slots just click no, and it won't show any. Embed includes Public Slots, Reserved slots, Time of server, Weather of server, and Join Link. Embed color and thumbnail can also be chosen. 
+/serverembed will allow you to add a server embed with up to 5 servers (you can add more server slots). The bot supports Invite links instead of API's now. Invite1 is the first server, and so on, same with name1 and vip_slots1. VIP slots will show VIP slots if any, if there are no reserved slots just click no, VIP only slots will filter just VIP slots is you have a VIP only server. Embed includes Public Slots, Reserved slots, VIP only slots, Time of server, Weather of server, and the Join Link. Embed color and thumbnail can also be chosen. 
 
-/Whitelist command is a WIP and is not complete, and can be removed or edited to work, (adds a user to the whitelist but won't sync with the hub)
-
+/Whitelist command is a WIP and is not complete, and can be removed or edited to work (adds a user to the whitelist but won't sync with the hub at this point in time)
 
 # ✨ Customize
-This bot is fully customizable and you can change almost anything you want. Nothing is hard coded into the bot and should run if something is changed. However changing things besides embeds, messages sent, locations to where things are going, or other modifications in which the command itself is not changing may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION you can DM me on discord @mex8future
+This bot is fully customizable and you can change almost anything you want. Nothing is hard-coded into the bot, and it should run if something is changed. However, changing things besides embeds, messages sent, locations to where things are going, or other modifications in which the command itself is not changing may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION, you can DM me on Discord @mex8future
