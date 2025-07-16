@@ -37,6 +37,12 @@ The bot should create this file when run, but if not create the file below in th
 "leaderboard_message_id.json"
 ```
 ```
+# In the Bansusers.py and changetxt.py you need to fill out the host information for the bot to access and edit your blacklist.txt's
+```
+
+Make sure to check where ever there is a # to see what it says, most of the time it will be telling you information you need to fill out
+
+```
 Embeds can be edited via there messages and what you want to say
 ```
 
@@ -95,6 +101,12 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 /remove_player will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord ID so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
 
 /serverembed will allow you to add a server embed with up to 5 servers (you can add more server slots). The bot supports Invite links instead of API's now. Invite1 is the first server, and so on, same with name1 and vip_slots1. VIP slots will show VIP slots if any, if there are no reserved slots just click no, VIP only slots will filter just VIP slots is you have a VIP only server. Embed includes Public Slots, Reserved slots, VIP only slots, Time of server, Weather of server, and the Join Link. Embed color and thumbnail can also be chosen. 
+
+/ban_user allows you to ban a user on multiple servers through the blacklist.,txt with just the steamID
+
+/bannedlist allows you to see the users banned 
+
+/blacklist_remove allows you to unban a user from all the servers
 
 /Whitelist command is a WIP and is not complete, and can be removed or edited to work (adds a user to the whitelist but won't sync with the hub at this point in time)
 
