@@ -37,9 +37,19 @@ The bot should create this file when run, but if not create the file below in th
 ```
 "leaderboard_message_id.json"
 ```
-
+In the ```leaderboard.py``` you need to add emoji and role info, to do this get the emoji name and number, then also get the role id you want to match your emoji
+```
+Ex: ROLE_EMOJI_PRIORITY = [
+    (1384629851037468673, "<:Staff:1394901391826485268>"),
+    (1273948572638492817, "<:Lifetime:1394906121122353182>"),
+]
+```
 In the ```Bansusers.py``` and ```changetxt.py``` you need to fill out the ```ENDPOINTS``` data for the bot to access and edit your blacklist.txt's
-
+```
+EX: ENDPOINTS = [
+    {"host": "123.45.678", "username": "root", "password": "Password", "remote_path": "/root/Servername/blacklist.txt"},
+]
+```
 ```
 Embeds can be edited via there messages and what you want to say
 ```
