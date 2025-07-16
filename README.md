@@ -14,6 +14,7 @@ Currently running on an Ubuntu system but written and tested on Windows 11
 
 
 # ⚙️ Configuration
+## Make sure to check wherever there is a # to see what it says, most of the time it will be telling you information you need to fill out
 In the .env
 ```
 DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
@@ -36,11 +37,8 @@ The bot should create this file when run, but if not create the file below in th
 ```
 "leaderboard_message_id.json"
 ```
-```
-# In the Bansusers.py and changetxt.py you need to fill out the host information for the bot to access and edit your blacklist.txt's
-```
 
-Make sure to check where ever there is a # to see what it says, most of the time it will be telling you information you need to fill out
+In the ```Bansusers.py``` and ```changetxt.py``` you need to fill out the ```ENDPOINTS``` data for the bot to access and edit your blacklist.txt's
 
 ```
 Embeds can be edited via there messages and what you want to say
