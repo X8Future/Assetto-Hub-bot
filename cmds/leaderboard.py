@@ -12,13 +12,13 @@ def clean_player_name(name: str) -> str:
     return re.sub(r'\s*\[.*?\]\s*', '', name).strip()
 
 
-DB_PATH = '' # once agian add your database path
-TARGET_CHANNEL_ID = # wont matter what channel just put one
+DB_PATH = '/root/Bot-File/Hub.db'
+TARGET_CHANNEL_ID = 1189659213337723030
 MESSAGE_ID_PATH = "leaderboard_message_id.json"
 MAX_FIELD_LENGTH = 1024
 
-ALLOWED_ROLE_IDS = [# What role you want to be able to use the command]
-ROLE_EMOJI_PRIORITY = [ # what Order you want your emojis to be next to the person's name, the higher the role and the emoji is the more it will be prioritized and shown If people have multiple roles, see example below
+ALLOWED_ROLE_IDS = [1251377219910242365]
+ROLE_EMOJI_PRIORITY = [
     (1251377219910242365, "<:Staff:1394901391826485268>"),
     (1274637474471215201, "<:Lifetime:1394906121122353182>"),
     (1229907065074487362, "<:TIER2:1394903128595238992>"),
@@ -239,7 +239,17 @@ class FindScoreButton(discord.ui.Button):
                 result = await cursor.fetchone()
 
                 if not result:
-                    await interaction.response.send_message("You haven't been whitelisted.", ephemeral=True)
+                    embed = discord.Embed(
+                        title="Not Whitelisted",
+                        description=(
+                            f"Hello {interaction.user.mention},\n\n"
+                            "It seems you haven't been whitelisted yet.\n\n"
+                            "Please head to https://discord.com/channels/1176727481634541608/1186581847732408401 to get whitelisted!"
+                        ),
+                        color=0x36393F
+                    )
+                    embed.set_footer(text="Brought to you by Future Crew™")
+                    await interaction.response.send_message(embed=embed, ephemeral=True)
                     return
 
                 player_id = result[0]
@@ -254,7 +264,17 @@ class FindScoreButton(discord.ui.Button):
                         break
 
                 if not entry_found:
-                    await interaction.response.send_message("No runs found. Try playing first!", ephemeral=True)
+                    embed = discord.Embed(
+                        title="No Scores Found",
+                        description=(
+                            f"Hello {interaction.user.mention},\n\n"
+                            "You do not have an entry in this leaderboard.\n\n"
+                            "You can check again later, after you go ingame and get a new highscore!"
+                        ),
+                        color=0x36393F
+                    )
+                    embed.set_footer(text="Brought to you by Future Crew™")
+                    await interaction.response.send_message(embed=embed, ephemeral=True)
                     return
 
                 _, _, score, duration, car_name, _, updated_at = entry_found
