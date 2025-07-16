@@ -6,12 +6,28 @@ import pytz
 
 from discord.ext import commands, tasks
 from discord import app_commands, Interaction
+import re
 
-DB_PATH = ''
+def clean_player_name(name: str) -> str:
+    return re.sub(r'\s*\[.*?\]\s*', '', name).strip()
+
+
+DB_PATH = '' # once agian add your database path
+TARGET_CHANNEL_ID = # wont matter what channel just put one
 MESSAGE_ID_PATH = "leaderboard_message_id.json"
 MAX_FIELD_LENGTH = 1024
 
-ALLOWED_ROLE_IDS = [1251377219910242365]
+ALLOWED_ROLE_IDS = [# What role you want to be able to use the command]
+ROLE_EMOJI_PRIORITY = [ # what Order you want your emojis to be next to the person's name, the higher the role and the emoji i,s the more it will be prioritized and shown if people have multiple the roles, see example below
+    (1251377219910242365, "<:Staff:1394901391826485268>"),
+    (1274637474471215201, "<:Lifetime:1394906121122353182>"),
+    (1229907065074487362, "<:TIER2:1394903128595238992>"),
+    (1234733909158264914, "<:TIER2:1394903128595238992>"),
+    (1229900492759503002, "<:TIER1:1394901645128634419>"),
+    (1234733594941849632, "<:TIER1:1394901645128634419>"),
+    (1257423714614644956, "<:Whiteline:1346388225337589823>")
+]
+
 
 class Leaderboard(commands.Cog):
     def __init__(self, bot):
@@ -88,6 +104,27 @@ class Leaderboard(commands.Cog):
             print(f"Database Error: {e}")
             return "Unknown Player"
 
+    async def get_display_name(self, guild, discord_id, player_name):
+        if discord_id is None:
+            return player_name
+        try:
+            member = await guild.fetch_member(discord_id)
+        except discord.NotFound:
+            print(f"Member with ID {discord_id} not found in guild {guild.name}")
+            return player_name
+        except discord.Forbidden:
+            print(f"Missing permissions to fetch member {discord_id} in guild {guild.name}")
+            return player_name
+        except Exception as e:
+            print(f"Error fetching member: {e}")
+            return player_name
+
+        for role_id, emoji in ROLE_EMOJI_PRIORITY:
+            if any(role.id == role_id for role in member.roles):
+                return f"{emoji} {player_name}"
+
+        return player_name
+
     async def get_position_suffix(self, position, for_button=False):
         if for_button:
             return f"Your {position} place on the leaderboard!"
@@ -121,12 +158,12 @@ class Leaderboard(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = await self.create_leaderboard_embed()
+        embed = await self.create_leaderboard_embed(channel.guild)
         self.leaderboard_message = await channel.send(embed=embed, view=LeaderboardView(self))
         await self.save_message_id(self.leaderboard_message.id)
         await interaction.followup.send(f"Leaderboard embed sent to {channel.mention}.", ephemeral=True)
 
-    async def create_leaderboard_embed(self):
+    async def create_leaderboard_embed(self, guild):
         leaderboard_entries = await self.fetch_leaderboard()
         if not leaderboard_entries:
             return discord.Embed(title="Cut Up Leaderboard | Top 10", description="No scores available.", color=0x36393F)
@@ -141,7 +178,10 @@ class Leaderboard(commands.Cog):
         for idx, entry in enumerate(leaderboard_entries, start=1):
             _, player_id, score, duration, car_name, discord_id, updated_at = entry
             discord_mention = f"<@{discord_id}>" if discord_id else "** **"
-            player_name = await self.fetch_player_name(player_id) if player_id else "No Player"
+            raw_name = await self.fetch_player_name(player_id) if player_id else "No Player"
+            clean_name = clean_player_name(raw_name)
+            player_name = await self.get_display_name(guild, discord_id, clean_name)
+
             minutes, seconds = divmod(duration // 1000, 60)
             formatted_duration = f"{minutes}m {seconds}s"
             position_with_suffix = await self.get_position_suffix(idx)
@@ -167,7 +207,7 @@ class Leaderboard(commands.Cog):
         if self.leaderboard_message is None:
             return
         try:
-            embed = await self.create_leaderboard_embed()
+            embed = await self.create_leaderboard_embed(self.leaderboard_message.guild)
             await self.leaderboard_message.edit(embed=embed)
         except Exception as e:
             print(f"Error updating leaderboard: {e}")
