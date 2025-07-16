@@ -18,7 +18,7 @@ MESSAGE_ID_PATH = "leaderboard_message_id.json"
 MAX_FIELD_LENGTH = 1024
 
 ALLOWED_ROLE_IDS = [# What role you want to be able to use the command]
-ROLE_EMOJI_PRIORITY = [ # what Order you want your emojis to be next to the person's name, the higher the role and the emoji i,s the more it will be prioritized and shown if people have multiple the roles, see example below
+ROLE_EMOJI_PRIORITY = [ # what Order you want your emojis to be next to the person's name, the higher the role and the emoji is the more it will be prioritized and shown If people have multiple roles, see example below
     (1251377219910242365, "<:Staff:1394901391826485268>"),
     (1274637474471215201, "<:Lifetime:1394906121122353182>"),
     (1229907065074487362, "<:TIER2:1394903128595238992>"),
