@@ -298,5 +298,37 @@ class ServerEmbedUpdater(commands.Cog):
             except:
                 pass
 
+    # === Added refresh command here ===
+    @app_commands.command(name="refresh", description="Force update all server embeds (Admin only)")
+    @app_commands.checks.has_permissions(administrator=True)
+    async def refresh(self, interaction: discord.Interaction):
+        await interaction.response.defer(thinking=True, ephemeral=True)
+        refreshed_count = 0
+
+        for embed_cfg in self.active_embeds:
+            try:
+                channel = self.bot.get_channel(embed_cfg["channel_id"])
+                if not channel:
+                    continue
+                message = await channel.fetch_message(embed_cfg["message_id"])
+                invite_links = embed_cfg["invite_links"]
+                api_links = [self.convert_invite_to_api(inv) for inv in invite_links]
+                server_data = [(await self.fetch_server_data(api), invite) for api, invite in zip(api_links, invite_links)]
+                new_embed = await self.create_embed(
+                    server_data=server_data,
+                    custom_names=embed_cfg["custom_names"],
+                    vip_slots_enabled=embed_cfg["vip_slots_enabled"],
+                    vip_only=embed_cfg.get("vip_only", []),
+                    title=embed_cfg["custom_title"],
+                    color=embed_cfg["embed_color"],
+                    thumbnail=embed_cfg.get("thumbnail_url")
+                )
+                await message.edit(embed=new_embed)
+                refreshed_count += 1
+            except:
+                continue
+
+        await interaction.followup.send(f"✅ Refreshed {refreshed_count} embed(s).", ephemeral=True)
+
 async def setup(bot):
     await bot.add_cog(ServerEmbedUpdater(bot))
