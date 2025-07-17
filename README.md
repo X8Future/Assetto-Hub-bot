@@ -110,6 +110,8 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 /serverembed will allow you to add a server embed with up to 5 servers (you can add more server slots). The bot supports Invite links instead of API's now. Invite1 is the first server, and so on, same with name1 and vip_slots1. VIP slots will show VIP slots if any, if there are no reserved slots just click no, VIP only slots will filter just VIP slots is you have a VIP only server. Embed includes Public Slots, Reserved slots, VIP only slots, Time of server, Weather of server, and the Join Link. Embed color and thumbnail can also be chosen. 
 
+/refresh will refresh all embeds connected to the bot incase they stop updating 
+
 /ban_user allows you to ban a user on multiple servers through the blacklist.,txt with just the steamID
 
 /bannedlist allows you to see the users banned 
