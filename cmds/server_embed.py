@@ -298,7 +298,6 @@ class ServerEmbedUpdater(commands.Cog):
             except:
                 pass
 
-    # === Added refresh command here ===
     @app_commands.command(name="refresh", description="Force update all server embeds (Admin only)")
     @app_commands.checks.has_permissions(administrator=True)
     async def refresh(self, interaction: discord.Interaction):
