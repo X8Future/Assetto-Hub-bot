@@ -12,9 +12,9 @@ import traceback
 SERVER_JSON = "server_embeds.json"
 PERSIST_FILE = "live_server_embeds.json"
 
-ALERT_CHANNEL_ID = 1418082371051323472
-ALERT_ROLE_ID = 1196681600977616927
-ALERT_USER = "<@807746550113370132>"
+ALERT_CHANNEL_ID = # Where you want the bot to tell you a server has gone down
+ALERT_ROLE_ID = # The role you want to get pinged when a server goes down
+ALERT_USER = "<@>" # If you want a person to be pinged as well as as role
 
 PACIFIC_TZ = pytz.timezone("America/Los_Angeles")
 
@@ -510,3 +510,4 @@ class AlertClearButtonView(discord.ui.View):
 
 async def setup(bot):
     await bot.add_cog(LiveEmbedManager(bot))
+
