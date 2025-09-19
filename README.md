@@ -53,14 +53,22 @@ EX: ENDPOINTS = [
 Embeds can be edited via their messages, and what you want to say
 ```
 In the ```Automod``` fill out each of the spaces
-```IMMUNE_ROLES = {} # roles immune to the automod``` ```HARD_BAD_WORDS = [] # Bad words that will always be blocked``` ```BAD_WORD_KEYWORDS = [] # Words that if they even have a little of the word in will be blocked``` 
-```HARD_BLOCKED_DOMAINS = [] # Website always blocked``` ```ADULT_SITE_KEYWORDS = [] # 18+ Website key words``` ```WHITELISTED_INVITES = {} # Invite links you want to be allowed``` ```BYPASS_CHANNELS = {} #  Channels the auto mod won't work```
-```APPEALS_ROLE_ID = # Roles you want to give for appeals``` ```APPEALS_CATEGORY_ID = # Where you want the Appeals channels to be created```
+```
+- IMMUNE_ROLES = {} # roles immune to the automod
+- HARD_BAD_WORDS = [] # Bad words that will always be blocked 
+- BAD_WORD_KEYWORDS = [] # Words that if they even have a little of the word in will be blocked
+- HARD_BLOCKED_DOMAINS = [] # Website always blocked ADULT_SITE_KEYWORDS = [] # 18+ Website key words
+- WHITELISTED_INVITES = {} # Invite links you want to be allowed BYPASS_CHANNELS = {} #  Channels the auto mod won't work
+- APPEALS_ROLE_ID = # Roles you want to give for appeals
+- APPEALS_CATEGORY_ID = # Where you want the Appeals channels to be created
+```
 
 In the ```Live_persons``` section, you need to fill out the channel you want alerts for and the roles you want to be alerted
-```ALERT_CHANNEL_ID = # Where you want the bot to tell you a server has gone down```
-```ALERT_ROLE_ID = # The role you want to get pinged when a server goes down```
-```ALERT_USER = "<@>" # If you want a person to be pinged as well as as role```
+```
+- ALERT_CHANNEL_ID = # Where you want the bot to tell you a server has gone down
+- ALERT_ROLE_ID = # The role you want to get pinged when a server goes down
+- ALERT_USER = "<@>" # If you want a person to be pinged as well as a role
+```
 
 # ⏬ Installation
 Install python [using](https://www.python.org/downloads/) 
