@@ -47,12 +47,20 @@ Ex: ROLE_EMOJI_PRIORITY = [
 In the ```Bansusers.py``` and ```changetxt.py``` you need to fill out the ```ENDPOINTS``` data for the bot to access and edit your blacklist.txt's
 ```
 EX: ENDPOINTS = [
-    {"host": "123.45.678", "username": "root", "password": "Password", "remote_path": "/root/Servername/blacklist.txt"},
-]
+    {"host": "123.45.678", "username": "root", "password": "Password", "remote_path": "/root/Servername/blacklist.txt"},]
 ```
 ```
-Embeds can be edited via there messages and what you want to say
+Embeds can be edited via their messages, and what you want to say
 ```
+In the ```Automod``` fill out each of the spaces
+```IMMUNE_ROLES = {} # roles immune to the automod``` ```HARD_BAD_WORDS = [] # Bad words that will always be blocked``` ```BAD_WORD_KEYWORDS = [] # Words that if they even have a little of the word in will be blocked``` 
+```HARD_BLOCKED_DOMAINS = [] # Website always blocked``` ```ADULT_SITE_KEYWORDS = [] # 18+ Website key words``` ```WHITELISTED_INVITES = {} # Invite links you want to be allowed``` ```BYPASS_CHANNELS = {} #  Channels the auto mod won't work```
+```APPEALS_ROLE_ID = # Roles you want to give for appeals``` ```APPEALS_CATEGORY_ID = # Where you want the Appeals channels to be created```
+
+In the ```Live_persons``` section, you need to fill out the channel you want alerts for and the roles you want to be alerted
+```ALERT_CHANNEL_ID = # Where you want the bot to tell you a server has gone down```
+```ALERT_ROLE_ID = # The role you want to get pinged when a server goes down```
+```ALERT_USER = "<@>" # If you want a person to be pinged as well as as role```
 
 # ⏬ Installation
 Install python [using](https://www.python.org/downloads/) 
@@ -112,13 +120,25 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 /refresh will refresh all embeds connected to the bot incase they stop updating 
 
-/ban_user allows you to ban a user on multiple servers through the blacklist.,txt with just the steamID
+/ban_user allows you to ban a user on multiple servers through the blacklist.txt with just the steamID
 
 /bannedlist allows you to see the users banned 
 
 /blacklist_remove allows you to unban a user from all the servers
 
-/Whitelist command is a WIP and is not complete, and can be removed or edited to work (adds a user to the whitelist but won't sync with the hub at this point in time)
+/appeals will create an appeals embed in a channel of your choice
+
+/timeout will timeout a user for how long you want (#h #m #s format Ex: 1h 10m 20s)
+
+/liveembed will create a live embed of all servers you have created in the /serverembed command 
+
+/removestrike will remove the # of strikes you choose for the user
+
+/load_cog will load any cog that are not loaded on the start of the bot
+
+/removettimeout will remove the timeout of a user and allow you to choose if you want to remove a strike or not
+
+/Whitelist command is a WIP and is not complete, and can be removed or edited to work (adds a user to the whitelist, but won't sync with the hub at this point in time)
 
 # ✨ Customize
 This bot is fully customizable and you can change almost anything you want. Nothing is hard-coded into the bot, and it should run if something is changed. However, changing things besides embeds, messages sent, locations to where things are going, or other modifications in which the command itself is not changing may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION, you can DM me on Discord @mex8future
