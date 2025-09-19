@@ -7,36 +7,21 @@ import re
 import json
 import os
 
-IMMUNE_ROLES = {1251377219910242365}
-HARD_BAD_WORDS = [
-    "fuck", "shit", "bitch", "asshole", "dick", "cunt", "nigger", "faggot", "slut", "whore",
-    "porn", "sex", "cock", "pussy", "nigga", "hoe", "douche", "twat", "rape"
-]
-BAD_WORD_KEYWORDS = ["sex", "porn", "erotic", "hentai", "nude", "cam", "xxx"]
-HARD_BLOCKED_DOMAINS = [
-    "pornhub.com", "xvideos.com", "xnxx.com", "redtube.com", "youporn.com", "tube8.com",
-    "spankbang.com", "adultfriendfinder.com", "beeg.com", "hentaihaven.org", "rule34.xxx", "onlyfans.com"
-]
-ADULT_SITE_KEYWORDS = ["porn", "xxx", "sex", "hentai", "adult", "tube", "erotic", "cam"]
-WHITELISTED_INVITES = {
-    "discord.gg/futurecrew",
-    "discord.gg/nohesi",
-    "discord.gg/teamgetactive",
-    "discord.gg/5KjwpzrKyN",
-    "discord.gg/shutokorevivalproject",
-    "discord.gg/ETRpbujrJn",
-    "discord.gg/highspeed",
-    "discord.gg/D7f84sMNRg"
-}
+IMMUNE_ROLES = {}
+HARD_BAD_WORDS = []
+BAD_WORD_KEYWORDS = []
+HARD_BLOCKED_DOMAINS = []
+ADULT_SITE_KEYWORDS = []
+WHITELISTED_INVITES = {}
 IMAGE_SPAM_LIMIT = 5
 IMAGE_SPAM_INTERVAL = 10
 WORD_SPAM_LIMIT = 5
 WORD_SPAM_INTERVAL = 10
 STRIKE_DURATION_DAYS = 90
-BYPASS_CHANNELS = {1229329019850457118, 1229329089941340251, 1229329337400954911}
+BYPASS_CHANNELS = {}
 STRIKE_FILE = "strikes.json"
-APPEALS_ROLE_ID = 1227668177106768003
-APPEALS_CATEGORY_ID = 1418366472476168302
+APPEALS_ROLE_ID = 
+APPEALS_CATEGORY_ID =
 
 
 class AutoMod(commands.Cog):
@@ -270,3 +255,4 @@ class AppealButton(ui.Button):
 
 async def setup(bot):
     await bot.add_cog(AutoMod(bot))
+
