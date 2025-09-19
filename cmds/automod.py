@@ -7,21 +7,21 @@ import re
 import json
 import os
 
-IMMUNE_ROLES = {}
-HARD_BAD_WORDS = []
-BAD_WORD_KEYWORDS = []
-HARD_BLOCKED_DOMAINS = []
-ADULT_SITE_KEYWORDS = []
-WHITELISTED_INVITES = {}
+IMMUNE_ROLES = {} # roles immune to the automod
+HARD_BAD_WORDS = [] # Bad words that will always be blocked
+BAD_WORD_KEYWORDS = [] # Words that if they even have a little of the word in will be blocked
+HARD_BLOCKED_DOMAINS = [] # Webiste always blocked
+ADULT_SITE_KEYWORDS = [] # 18+ Website key words
+WHITELISTED_INVITES = {} # Invite links you want to be allowed
 IMAGE_SPAM_LIMIT = 5
 IMAGE_SPAM_INTERVAL = 10
 WORD_SPAM_LIMIT = 5
 WORD_SPAM_INTERVAL = 10
 STRIKE_DURATION_DAYS = 90
-BYPASS_CHANNELS = {}
+BYPASS_CHANNELS = {} #  Channels the auto mod won't work
 STRIKE_FILE = "strikes.json"
-APPEALS_ROLE_ID = 
-APPEALS_CATEGORY_ID =
+APPEALS_ROLE_ID = # Roles you want to give for appeals
+APPEALS_CATEGORY_ID = # Where you want the Appeals channels to be created
 
 
 class AutoMod(commands.Cog):
@@ -255,4 +255,5 @@ class AppealButton(ui.Button):
 
 async def setup(bot):
     await bot.add_cog(AutoMod(bot))
+
 
