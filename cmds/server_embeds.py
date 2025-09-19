@@ -7,8 +7,8 @@ import json
 import os
 
 PERSIST_FILE = "server_embeds.json"
-REPORT_CHANNEL_ID = 1196681600977616927
-PING_ROLE_ID = 1418082371051323472
+REPORT_CHANNEL_ID = # Where the report will be put for down server embeds
+PING_ROLE_ID = # Role that will be pinged when a server embed can no longer update
 
 class ServerEmbedUpdater(commands.Cog):
     WEATHER_MAP = {
@@ -262,3 +262,4 @@ class ServerEmbedUpdater(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ServerEmbedUpdater(bot))
+
