@@ -8,9 +8,9 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 DATABASE = "/root/Files/whitelist.db"
-ALLOWED_ROLE_ID = 1196681600977616927
+ALLOWED_ROLE_ID = 
 MAX_ATTEMPTS = 0
-LOG_CHANNEL_ID = 1191990080550731866
+LOG_CHANNEL_ID = 
 
 class DatabaseAdmin(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -92,3 +92,4 @@ class DatabaseAdmin(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(DatabaseAdmin(bot))
+
