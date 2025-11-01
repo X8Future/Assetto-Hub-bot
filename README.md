@@ -14,7 +14,7 @@ Currently running on an Ubuntu system but written and tested on Windows 11
 
 
 # ⚙️ Configuration
-## Make sure to check wherever there is a # to see what it says, most of the time it will be telling you information you need to fill out
+## Make sure to check wherever there is a # to see what it says. Most of the time, it will be telling you information you need to fill out
 In the .env
 ```
 DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
@@ -84,6 +84,7 @@ Configure the Configfile and then deploy the Commands.
 pip install aiohttp
 pip install discord.py requests
 pip install discord.py aiosqlite pytz
+sudo dnf install python3-aiofiles
 ```
 
 # 🤖 Running the Bot
@@ -118,7 +119,7 @@ With /wlo you can override someone's Steam ID in the whitelist
 
 With /check_whitelist you can check someone's status on whitelist to see what ID they connected to or if they have attempted to whitelist
 
-/delete_user_players: will remove a user from the database and give them a fresh chance to re-whitelist 
+/delete_whitelis: will remove a user from the database and give them a fresh chance to re-whitelist 
 
 /add_player_run will add a player run to the leaderboard if you remove the run and it was legit or someone is missing a run
 
@@ -126,7 +127,7 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 /serverembed will allow you to add a server embed with up to 5 servers (you can add more server slots). The bot supports Invite links instead of API's now. Invite1 is the first server, and so on, same with name1 and vip_slots1. VIP slots will show VIP slots if any, if there are no reserved slots just click no, VIP only slots will filter just VIP slots is you have a VIP only server. Embed includes Public Slots, Reserved slots, VIP only slots, Time of server, Weather of server, and the Join Link. Embed color and thumbnail can also be chosen. 
 
-/refresh will refresh all embeds connected to the bot incase they stop updating 
+/refresh will refresh all embeds connected to the bot in case they stop updating 
 
 /ban_user allows you to ban a user on multiple servers through the blacklist.txt with just the steamID
 
@@ -138,15 +139,19 @@ With /check_whitelist you can check someone's status on whitelist to see what ID
 
 /timeout will timeout a user for how long you want (#h #m #s format Ex: 1h 10m 20s)
 
-/liveembed will create a live embed of all servers you have created in the /serverembed command 
-
 /removestrike will remove the # of strikes you choose for the user
 
-/load_cog will load any cog that are not loaded on the start of the bot
+/load_cog will load any cog that is not loaded at the start of the bot
+
+/refresh_cog will allow you to refresh a cog if something isn't working
+
+/unload_cog will unload a cog, helpful for commands not used much to reduce bot traffic
 
 /removettimeout will remove the timeout of a user and allow you to choose if you want to remove a strike or not
 
-/Whitelist command is a WIP and is not complete, and can be removed or edited to work (adds a user to the whitelist, but won't sync with the hub at this point in time)
+/Whitelist command is a WIP and is not 100% done. Adds a user to the whitelist.db tracking Steam ID, roles, attempts, and updates every 5 minutes, checking users' roles. Syncs with ALL servers via loading txt's into the servers, similar to the blacklist command. 
+
+/server_embed adds a server states embed based on the server embeds you have made with the bot, tracks servers active, how many players online, weather in servers, and how long people have been in your servers for that day
 
 # ✨ Customize
-This bot is fully customizable and you can change almost anything you want. Nothing is hard-coded into the bot, and it should run if something is changed. However, changing things besides embeds, messages sent, locations to where things are going, or other modifications in which the command itself is not changing may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION, you can DM me on Discord @mex8future
+This bot is fully customizable and you can change almost anything you want. Nothing is hard-coded into the bot, and it should run if something is changed. However, changing things besides embeds, messages sent, locations to where things are going, or other modifications in which the command itself is not changing may result in broken code. All code is free to use without Future Crew's knowledge or copyright (check MIT LICENSE). If you have any questions about CUSTOMIZATION, you can ***DM*** me on Discord @mex8future
