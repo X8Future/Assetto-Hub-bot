@@ -1,166 +1,297 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-import sqlite3
-import requests
-import os
+import aiosqlite, aiohttp, asyncio, os, paramiko, logging, aiofiles
 
-STEAM_API_KEY = ""  # Replace with your Steam API key
-STEAM_API_URL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
+logging.getLogger("paramiko").setLevel(logging.WARNING)
+logging.getLogger("paramiko").disabled = True
 
-db_path = '/root/Bot-File/Hub.db'
+STEAM_API_KEY = ""
+DATABASE = "whitelist.db"
+MAX_ATTEMPTS = 2
+DARK_MODE_COLOR = 0x2f3136
+MAX_CONCURRENT_STEAM = 5
+BATCH_SIZE = 5
+BATCH_DELAY = 2
+LOG_CHANNEL_ID = # Channel you want things logged to
+INPUT_TIMEOUT = 120
+ROLE_TXT_DIR = "./steam_roles/"
+ROLE_MAPPING = {
+    "Lifetime": [, ],
+    "Tier 2": [, ],
+    "Tier 1": [, ], # set role IDs
+}
+ENDPOINTS = [] # Same endpoints as Blacklist
 
-if not os.path.exists(db_path):
-    print(f"Database file not found at {db_path}")
-else:
-    print(f"Database file found at {db_path}")
+class WhitelistCog(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.semaphore = asyncio.Semaphore(MAX_CONCURRENT_STEAM)
+        self.db: aiosqlite.Connection | None = None
+        self.session: aiohttp.ClientSession | None = None
+        self.sftp_lock = asyncio.Lock()
+        self.background_task = None
+        self.upload_task = None
+        self.dirty_files: set[str] = set()
 
-conn = sqlite3.connect(db_path)
-cursor = conn.cursor()
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS players_discord (
-    discord_userid TEXT PRIMARY KEY,
-    player_id TEXT UNIQUE
-)
-""")
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS whitelist_attempts (
-    discord_userid TEXT PRIMARY KEY,
-    attempts_left INTEGER DEFAULT 2
-)
-""")
-conn.commit()
-
-def validate_steam_id(steam_id):
-    """Validates the Steam ID by making a request to the Steam API."""
-    try:
-        params = {"key": STEAM_API_KEY, "steamids": steam_id}
-        response = requests.get(STEAM_API_URL, params=params)
-        response.raise_for_status()
-        data = response.json()
-        players = data.get("response", {}).get("players", [])
-        return len(players) > 0
-    except requests.RequestException as e:
-        print(f"Error validating Steam ID: {e}")
-        return False
-
-def is_steam_id_taken(steam_id):
-    """Checks if the provided Steam ID is already associated with a Discord user."""
-    cursor.execute("SELECT discord_userid FROM players_discord WHERE player_id = ?", (steam_id,))
-    return cursor.fetchone() is not None
-
-def get_remaining_attempts(discord_id):
-    """Gets the remaining attempts for the provided Discord ID."""
-    cursor.execute("SELECT attempts_left FROM whitelist_attempts WHERE discord_userid = ?", (discord_id,))
-    row = cursor.fetchone()
-    if row is None:
-        cursor.execute("INSERT INTO whitelist_attempts (discord_userid, attempts_left) VALUES (?, ?)", (discord_id, 2))
-        conn.commit()
-        return 2
-    return row[0]
-
-def decrement_attempts(discord_id):
-    """Decreases the number of attempts left for the provided Discord ID."""
-    remaining = get_remaining_attempts(discord_id)
-    if remaining > 0:
-        cursor.execute("UPDATE whitelist_attempts SET attempts_left = ? WHERE discord_userid = ?", (remaining - 1, discord_id))
-        conn.commit()
-        return remaining - 1
-    return 0
-
-async def assign_role_to_user(discord_user: discord.User, role_id: str):
-    """Assigns a specific role to the user after validation."""
-    guild = discord_user.guild
-    role = discord.utils.get(guild.roles, id=int(role_id))  # Convert the role_id to int if needed
-
-    if role:
-        await discord_user.add_roles(role)
-        print(f"Role '{role.name}' assigned to {discord_user.name}")
-    else:
-        print(f"Role with ID '{role_id}' not found in server.")
-
-class SteamIDModal(discord.ui.Modal, title="Enter Your Steam ID"):
-    steam_id = discord.ui.TextInput(label="Steam ID", placeholder="Enter your Steam ID")
-
-    async def on_submit(self, interaction: discord.Interaction):
-        steam_id = self.steam_id.value.strip()
-        discord_id = str(interaction.user.id)
-
-        if is_steam_id_taken(steam_id):
-            await interaction.response.send_message(
-                "This Steam ID is already taken. Contact an administrator if you are sure it is yours.",
-                ephemeral=True
+    async def cog_load(self):
+        os.makedirs(ROLE_TXT_DIR, exist_ok=True)
+        for role_name in ROLE_MAPPING:
+            file_path = os.path.join(ROLE_TXT_DIR, f"{role_name}.txt")
+            if not os.path.exists(file_path):
+                async with aiofiles.open(file_path, "w") as f:
+                    await f.write("")
+        self.db = await aiosqlite.connect(DATABASE)
+        await self.db.execute("""
+            CREATE TABLE IF NOT EXISTS whitelist (
+                discord_id INTEGER PRIMARY KEY,
+                steam_id TEXT UNIQUE,
+                roles TEXT,
+                attempts INTEGER DEFAULT 0
             )
+        """)
+        await self.db.commit()
+        self.session = aiohttp.ClientSession()
+        self.bot.add_view(self.StartView(self))
+        self.background_task = asyncio.create_task(self.periodic_role_checker())
+        self.upload_task = asyncio.create_task(self.periodic_upload_checker())
+
+    async def periodic_role_checker(self):
+        while True:
+            async with self.db.execute("SELECT discord_id FROM whitelist") as cursor:
+                users = await cursor.fetchall()
+            for i in range(0, len(users), BATCH_SIZE):
+                batch = users[i:i + BATCH_SIZE]
+                for (discord_id,) in batch:
+                    for guild in self.bot.guilds:
+                        member = guild.get_member(discord_id)
+                        if member:
+                            roles = [str(r.id) for r in member.roles if r != guild.default_role]
+                            await self.mark_role_dirty(member, roles)
+                await asyncio.sleep(BATCH_DELAY)
+            await asyncio.sleep(300 - ((len(users) // BATCH_SIZE) * BATCH_DELAY))
+
+    async def mark_role_dirty(self, member, roles):
+        async with self.db.execute("SELECT steam_id FROM whitelist WHERE discord_id = ?", (member.id,)) as cursor:
+            row = await cursor.fetchone()
+        if not row:
             return
+        steam_id = row[0]
+        for role_name, role_ids in ROLE_MAPPING.items():
+            file_path = os.path.join(ROLE_TXT_DIR, f"{role_name}.txt")
+            lines = []
+            if os.path.exists(file_path):
+                async with aiofiles.open(file_path, "r") as f:
+                    lines = [l.strip() for l in await f.readlines() if l.strip()]
+            has_role = any(int(r) in role_ids for r in roles)
+            if has_role and steam_id not in lines:
+                lines.append(steam_id)
+            elif not has_role and steam_id in lines:
+                lines.remove(steam_id)
+            async with aiofiles.open(file_path, "w") as f:
+                await f.write("\n".join(lines))
+            self.dirty_files.add(file_path)
 
-        if validate_steam_id(steam_id):
-            decrement_attempts(discord_id)
-            cursor.execute(
-                "INSERT OR REPLACE INTO players_discord (discord_userid, player_id) VALUES (?, ?)",
-                (discord_id, steam_id),
-            )
-            conn.commit()
+    async def periodic_upload_checker(self):
+        while True:
+            if not self.dirty_files:
+                await asyncio.sleep(5)
+                continue
+            files_to_upload = list(self.dirty_files)
+            self.dirty_files.clear()
+            await self.upload_files(files_to_upload)
+            await asyncio.sleep(5)
 
-            await assign_role_to_user(interaction.user, "")  # Replace with your actual role ID
-            
-            await interaction.response.send_message("Successfully added to the whitelist!", ephemeral=True)
-        else:
-            await interaction.response.send_message("Invalid Steam ID. Please try again.", ephemeral=True)
+    async def upload_files(self, files_to_upload: list[str]):
+        async with self.sftp_lock:
+            log_channel = self.bot.get_channel(LOG_CHANNEL_ID)
+            if not log_channel:
+                return
 
-class ContinueView(discord.ui.View):
-    def __init__(self, attempts_left):
-        super().__init__(timeout=None)
-        self.attempts_left = attempts_left
+            embed = discord.Embed(title="Steam TXT Upload Status", color=DARK_MODE_COLOR)
+            failed_files = []
 
-    @discord.ui.button(label="Press here to whitelist your Steam ID", style=discord.ButtonStyle.blurple)
-    async def continue_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        modal = SteamIDModal()
-        await interaction.response.send_modal(modal)
+            for file_path in files_to_upload:
+                file_name = os.path.basename(file_path)
+                file_failures = []
 
-class WhitelistView(discord.ui.View):
-    def __init__(self):
-        super().__init__(timeout=None)
+                for ep in ENDPOINTS:
+                    transport = None
+                    sftp = None
+                    try:
+                        transport = paramiko.Transport((ep["host"], 22))
+                        transport.connect(username=ep["username"], password=ep["password"])
+                        sftp = paramiko.SFTPClient.from_transport(transport)
+                        remote_file = f"{ep['remote_path'].rstrip('/')}/{file_name}"
+                        # Run blocking put in thread to avoid heartbeat blocking
+                        await asyncio.to_thread(sftp.put, file_path, remote_file)
+                    except Exception:
+                        file_failures.append(ep["host"])
+                    finally:
+                        if sftp: sftp.close()
+                        if transport: transport.close()
 
-    @discord.ui.button(label="✅ Start Steam ID verification", style=discord.ButtonStyle.blurple)
-    async def whitelist_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        discord_id = str(interaction.user.id)
-        attempts_left = get_remaining_attempts(discord_id)
+                if file_failures:
+                    failed_files.append(file_name)
+                    embed.add_field(name=f"{file_name} ❌ Failed", value=", ".join(file_failures), inline=False)
+                else:
+                    embed.add_field(name=f"{file_name} ✅ Uploaded", value="All endpoints", inline=False)
 
-        if attempts_left > 0:
+            await log_channel.send(embed=embed)
+
+            if failed_files:
+                await log_channel.send(f"<@807746550113370132> ⚠️ Some files failed to upload: {', '.join(failed_files)}")
+
+
+
+    @commands.Cog.listener()
+    async def on_member_update(self, before, after):
+        if before.roles != after.roles:
+            roles = [str(r.id) for r in after.roles if r != after.guild.default_role]
+            await self.mark_role_dirty(after, roles)
+
+    class SteamIDModal(discord.ui.Modal, title="Enter your Steam ID"):
+        steam_id = discord.ui.TextInput(label="Steam ID", placeholder="Enter your Steam ID here")
+        def __init__(self, cog, user_id, attempts, row):
+            super().__init__()
+            self.cog = cog
+            self.user_id = user_id
+            self.attempts = attempts
+            self.row = row
+
+        async def on_submit(self, interaction: discord.Interaction):
+            await interaction.response.defer(ephemeral=True)
+            steam_id = self.steam_id.value.strip()
+            async with self.cog.semaphore:
+                async with self.cog.session.get(
+                    f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key={STEAM_API_KEY}&steamids={steam_id}"
+                ) as r:
+                    data = await r.json()
+                    players = data.get("response", {}).get("players", [])
+                    if not players:
+                        await interaction.followup.send("❌ Invalid Steam ID.", ephemeral=True)
+                        return
+                    player = players[0]
+
+            async with self.cog.db.execute("SELECT discord_id FROM whitelist WHERE steam_id = ?", (steam_id,)) as cursor:
+                existing = await cursor.fetchone()
+            if existing:
+                await interaction.followup.send(
+                    "❌ SteamID already linked to another account. Contact an admin if this is yours.",
+                    ephemeral=True
+                )
+                return
+
+            guild = interaction.guild
+            member = guild.get_member(self.user_id) or await guild.fetch_member(self.user_id)
+            roles = ",".join([str(r.id) for r in member.roles if r != guild.default_role]) if member else ""
+            if self.row:
+                await self.cog.db.execute(
+                    "UPDATE whitelist SET steam_id = ?, roles = ?, attempts = attempts + 1 WHERE discord_id = ?",
+                    (steam_id, roles, self.user_id))
+                attempts_used = self.attempts + 1
+            else:
+                await self.cog.db.execute(
+                    "INSERT INTO whitelist (discord_id, steam_id, roles, attempts) VALUES (?, ?, ?, 1)",
+                    (self.user_id, steam_id, roles))
+                attempts_used = 1
+            await self.cog.db.commit()
+            if member:
+                member_roles = [str(r.id) for r in member.roles if r != guild.default_role]
+                await self.cog.mark_role_dirty(member, member_roles)
+
             embed = discord.Embed(
-                title="Whitelist Steam ID Verification",
-                description=(f"Hello {interaction.user.mention}. You have `{attempts_left}` more tries to whitelist yourself.\n\n"
-                             "Let's begin your whitelist process.\n\n"
-                             "Press the button below, and insert your Steam ID."),
-                color=discord.Color.from_str("#36393F")
+                title="✅ Steam ID Saved",
+                description="Your Steam ID has been successfully linked!\n\n"
+                            "It may take up to 15 minutes for verification to be fully completed",
+                color=DARK_MODE_COLOR
             )
-            view = ContinueView(attempts_left)
-            await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
-        else:
-            await interaction.response.send_message(
-                "You have used all of your whitelist attempts. Contact an administrator for further assistance.",
-                ephemeral=True
-            )
+            embed.add_field(name="Discord Account", value=f"<@{interaction.user.id}> (`{self.user_id}`)", inline=False)
+            embed.add_field(name="Steam ID", value=steam_id, inline=False)
+            embed.set_thumbnail(url=interaction.user.display_avatar.url)
+            await interaction.followup.send(embed=embed, ephemeral=True)
 
-@app_commands.command(name="whitelist", description="Post the whitelist embed in a specified channel.")
-@app_commands.describe(channel="Select the channel to post the whitelist embed")
-async def whitelist(interaction: discord.Interaction, channel: discord.TextChannel):
-    embed = discord.Embed(
-        title="Whitelist Steam ID Verification",
-        description=("Press the button below to start the process\n\n"
-                      "Make sure to have your Steam ID at hand\n"
-                      "Find it here: https://discord.com/channels/1176727481634541608/1240318276840460380\n\n"
-                      "by Future Crew"),
-        color=discord.Color.from_str("#36393F") 
-    )
-    embed.set_thumbnail(url="https://media.discordapp.net/attachments/264328934353666048/1006907923135484024/download.gif")
-    view = WhitelistView()
+            log_channel = self.cog.bot.get_channel(LOG_CHANNEL_ID)
+            if log_channel:
+                embed = discord.Embed(title="Steam Account Linked", color=DARK_MODE_COLOR)
+                embed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
+                embed.add_field(name="Steam Profile",
+                                value=f"[{player.get('personaname', 'Unknown')}]({f'https://steamcommunity.com/profiles/{steam_id}'})",
+                                inline=False)
+                embed.add_field(name="Steam ID", value=steam_id, inline=False)
+                embed.add_field(name="Discord Tag", value=f"<@{interaction.user.id}>", inline=False)
+                embed.add_field(name="Attempts Used", value=str(attempts_used), inline=False)
+                embed.set_thumbnail(url=player.get("avatarfull"))
+                await log_channel.send(embed=embed)
 
-    await channel.send(embed=embed, view=view)
-    await interaction.response.send_message(f"Whitelist embed has been posted in {channel.mention}.", ephemeral=True)
+    class StartView(discord.ui.View):
+        def __init__(self, cog):
+            super().__init__(timeout=None)
+            self.cog = cog
+            self.add_item(self.StartButton(cog))
 
-# Extension setup function
-async def setup(bot: commands.Bot):
-    bot.tree.add_command(whitelist)
+        class StartButton(discord.ui.Button):
+            def __init__(self, cog):
+                super().__init__(label="Start Steam ID verification",
+                                 style=discord.ButtonStyle.success,
+                                 emoji="✅",
+                                 custom_id="persistent_start_verification")
+                self.cog = cog
+
+            async def callback(self, interaction: discord.Interaction):
+                await interaction.response.defer(ephemeral=True)
+                user_id = interaction.user.id
+                async with self.cog.db.execute("SELECT attempts FROM whitelist WHERE discord_id = ?", (user_id,)) as cursor:
+                    row = await cursor.fetchone()
+                attempts = row[0] if row else 0
+                if attempts >= MAX_ATTEMPTS:
+                    await interaction.followup.send("❌ Max attempts reached.", ephemeral=True)
+                    return
+                embed = discord.Embed(
+                    title="Steam ID Whitelist Verification",
+                    description=f"{interaction.user.mention}, you have **`{MAX_ATTEMPTS - attempts}` attempts** left.\n\n Click the button below to whitelist your Steam ID.",
+                    color=DARK_MODE_COLOR
+                )
+                view = self.cog.InputView(self.cog, user_id, attempts, row)
+                await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+
+    class InputView(discord.ui.View):
+        def __init__(self, cog, user_id, attempts, row):
+            super().__init__(timeout=INPUT_TIMEOUT)
+            self.cog = cog
+            self.user_id = user_id
+            self.attempts = attempts
+            self.row = row
+
+        @discord.ui.button(label="Whitelist your Steam ID", style=discord.ButtonStyle.primary, custom_id="input_steam_button")
+        async def input_steam(self, interaction: discord.Interaction, button: discord.ui.Button):
+            modal = self.cog.SteamIDModal(self.cog, self.user_id, self.attempts, self.row)
+            await interaction.response.send_modal(modal)
+
+        async def on_timeout(self):
+            for child in self.children:
+                child.disabled = True
+            user = self.cog.bot.get_user(self.user_id)
+            if user:
+                embed = discord.Embed(
+                    title="⏰ Verification Timed Out",
+                    description="Your Steam ID input session expired. Please try again.",
+                    color=DARK_MODE_COLOR
+                )
+                try:
+                    await user.send(embed=embed)
+                except:
+                    pass
+
+    async def cog_unload(self):
+        if self.session:
+            await self.session.close()
+        if self.db:
+            await self.db.close()
+        if self.background_task:
+            self.background_task.cancel()
+        if self.upload_task:
+            self.upload_task.cancel()
+
+async def setup(bot):
+    await bot.add_cog(WhitelistCog(bot))
