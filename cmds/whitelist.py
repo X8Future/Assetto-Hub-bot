@@ -6,20 +6,20 @@ import aiosqlite, aiohttp, asyncio, os, paramiko, logging, aiofiles
 logging.getLogger("paramiko").setLevel(logging.WARNING)
 logging.getLogger("paramiko").disabled = True
 
-STEAM_API_KEY = "90F58ADF94ED68134923FA78E07F7486"
+STEAM_API_KEY = ""
 DATABASE = "whitelist.db"
 MAX_ATTEMPTS = 2
 DARK_MODE_COLOR = 0x2f3136
 MAX_CONCURRENT_STEAM = 5
 BATCH_SIZE = 5
 BATCH_DELAY = 2
-LOG_CHANNEL_ID = 1191990080550731866
+LOG_CHANNEL_ID = # Channel you want all your logs to go to
 INPUT_TIMEOUT = 120
 ROLE_TXT_DIR = "./steam_roles/"
 ROLE_MAPPING = {
-    "Lifetime": [1292376553526661170, 1274637474471215201],
-    "Tier 2": [1229907065074487362, 1234733909158264914],
-    "Tier 1": [1229900492759503002, 1234733594941849632],
+    "Lifetime": [, ],  # Role ID's you want the bot to look for the file groups 
+    "Tier 2": [, ],
+    "Tier 1": [, ],
 }
 ENDPOINTS = [
     {"host": "5.78.113.173", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Spec"},
@@ -318,3 +318,4 @@ class WhitelistCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(WhitelistCog(bot))
+
