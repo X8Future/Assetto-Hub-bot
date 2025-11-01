@@ -3,7 +3,7 @@ from discord.ext import commands
 import sqlite3
 import os
 
-DB_PATH = '/root/Bot-File/Hub.db'
+DB_PATH = '/root/Files/whitelist.db'
 
 async def setup(bot: commands.Bot):
     @bot.tree.command(
