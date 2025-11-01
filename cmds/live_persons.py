@@ -9,11 +9,11 @@ from urllib.parse import urlparse, parse_qs
 SERVER_JSON = "/root/Files/server_embeds.json"
 PERSIST_FILE = "/root/Files/live_server_embeds.json"
 DAILY_PLAYERS_FILE = "/root/Files/daily_players.json"
-PACIFIC_TZ = pytz.timezone("America/Los_Angeles")
-ALERT_ROLE_ID = 1176727481647112296
+PACIFIC_TZ = pytz.timezone("America/Los_Angeles") # Use timezone near you for accruate time
+ALERT_ROLE_ID = # Role you want to be alerted when a server goes down
 DARK_COLOR = 0x2f3136
 TOTAL_SERVERS_PAGES = 3
-HUB_DB = "/root/Bot-File/hub.db"
+HUB_DB = "" # Not needed, may be used in the future
 
 DRIVER_FLAGS = {
     "POL": "🇵🇱", "USA": "🇺🇸", "FRA": "🇫🇷", "GER": "🇩🇪", "ITA": "🇮🇹",
@@ -335,3 +335,4 @@ class ServerCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ServerCog(bot))
+
