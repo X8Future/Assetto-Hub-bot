@@ -3,10 +3,10 @@ from discord.ext import commands
 import sqlite3
 import aiohttp
 
-STEAM_API_KEY = "90F58ADF94ED68134923FA78E07F7486"
+STEAM_API_KEY = ""
 STEAM_API_URL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
 DB_PATH = '/root/Files/whitelist.db'
-ALLOWED_ROLE_ID = 1251377219910242365
+ALLOWED_ROLE_ID = 
 
 
 class WLOCog(commands.Cog):
@@ -108,3 +108,4 @@ class WLOCog(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(WLOCog(bot))
+
