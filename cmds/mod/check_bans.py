@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import paramiko
 
-ALLOWED_ROLE_ID = 1251377219910242365
+ALLOWED_ROLE_ID = # Allowed role ID that can use this command 
 
 class CheckBans(commands.Cog):
     def __init__(self, bot):
@@ -56,3 +56,4 @@ class CheckBans(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(CheckBans(bot))
+
