@@ -1,3 +1,5 @@
+# Still a WIP command as well, can be used, but has some issues, such as drop-downs or buttons being added
+
 import discord
 from discord.ext import commands
 import json
@@ -6,9 +8,9 @@ import re
 
 
 DATA_FILE = "embed_data_store.json"
-ALLOWED_ROLE_IDS = {1251377219910242365} 
-ALERT_CHANNEL_ID = 1176767121972273283
-ALERT_ROLE_ID = 1176727481647112296 
+ALLOWED_ROLE_IDS = {} # Allowed role ID that can use this command 
+ALERT_CHANNEL_ID = # Not totally sure why this is still here (should be fine empty) 
+ALERT_ROLE_ID = # Not totally sure why this is still here (should be fine empty)
 
 def load_embed_data_store():
     if os.path.isfile(DATA_FILE):
@@ -361,3 +363,4 @@ class EmbedEditor(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(EmbedEditor(bot))
+
