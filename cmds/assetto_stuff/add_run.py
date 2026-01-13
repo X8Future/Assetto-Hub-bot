@@ -7,10 +7,10 @@ import random
 from datetime import datetime 
 import requests
 
-DB_PATH = '/root/Bot-File/Hub.db'
-STEAM_API_KEY = '90F58ADF94ED68134923FA78E07F7486'
+DB_PATH = # full path of hub Ex:'/root/Bot-File/Hub.db'
+STEAM_API_KEY = '' # Your Steam API code
 
-ALLOWED_ROLE_IDS = [1251377219910242365]
+ALLOWED_ROLE_IDS = [] # Allowed role ID that can use the command 
 
 class LeaderboardManagement(commands.Cog):
     def __init__(self, bot):
@@ -127,3 +127,4 @@ async def setup(bot: commands.Bot):
     leaderboard_management = LeaderboardManagement(bot)
     await bot.add_cog(leaderboard_management)
     await bot.tree.sync()
+
