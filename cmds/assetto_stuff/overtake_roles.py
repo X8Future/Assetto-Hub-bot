@@ -10,17 +10,17 @@ import aiofiles
 import paramiko
 
 SCORE_ROLE_IDS = {
-    "whiteline": 1257423714614644956,
-    "verifiedwhiteline": 1257423330395422844,
-    "certifiedwhiteline": 1186780889552789504,
+    "whiteline": ,
+    "verifiedwhiteline": ,
+    "certifiedwhiteline": ,
 }
 # IDs of the roles you are matching them to in DISCORD 
 
 PLACE_ROLES = {
-    1: 1257422882112409801,
-    3: 1257422843042336848,
-    5: 1257422806464069743,
-    10: 1230966911425187982,
+    1: ,
+    3: ,
+    5: ,
+    10: ,
 }
 # If you have roles based on place same thing, the role ID's your going to use
 
@@ -35,7 +35,7 @@ ENDPOINTS = [
     {
         "host": "37.27.32.68",
         "username": "root",
-        "password": "Puppo4pres",
+        "password": "",
         "remote_path": "/root/Bot-File",
     },
 ]
@@ -257,4 +257,5 @@ class LeaderboardRoleSync(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(LeaderboardRoleSync(bot))
+
 
