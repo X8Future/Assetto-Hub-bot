@@ -6,8 +6,8 @@ import asyncio
 
 SPAM_TIME_WINDOW = 5 
 SPAM_MESSAGE_THRESHOLD = 3
-TIMEOUT_DURATION = 86400 
-IMMUNE_ROLE_IDS = {1251377219910242365, 1176727481634541614}
+TIMEOUT_DURATION = 86400 # How long they are timed out for in minutes
+IMMUNE_ROLE_IDS = {1251377219910242365, 1176727481634541614} # Allowed role ID that can bypass the spam checker
 DELETE_DELAY = 0.5
 
 class AntiSpamCog(commands.Cog):
@@ -67,3 +67,4 @@ class AntiSpamCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(AntiSpamCog(bot))
+
