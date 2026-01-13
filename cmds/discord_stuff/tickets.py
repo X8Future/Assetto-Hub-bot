@@ -7,14 +7,14 @@ import io
 import json
 import os
 
-ROLE_IDS = {1196681600977616927, 1229301507233550419}
-TICKET_CATEGORY_ID = 1192401489180770365
-CLOSED_CATEGORY_ID = 1192402261003993118
-RESTRICTED_ROLE_ID = 1186779915501187072
-TRANSCRIPT_LOG_CHANNEL_ID = 1256764032048693270
+ROLE_IDS = {, } # Role ID's you want to be pinged when a ticket is created (can be as many as you want)
+TICKET_CATEGORY_ID =  # The Category ID where you want the new Tickets to be made
+CLOSED_CATEGORY_ID =  # The Category ID where you want the closed Tickets to be put
+RESTRICTED_ROLE_ID =  # Role ID that blocks users with that role from deleting tickets or getting transcripts
+TRANSCRIPT_LOG_CHANNEL_ID =  # The channel ID where you want transcripts to be sent
 PERSIST_FILE = "/root/Files/ticket_metadata.json"
 
-PING_COOLDOWN_HOURS = 4
+PING_COOLDOWN_HOURS = 4 # Number of hours you want the ping staff button to be on cooldown
 channel_creation_times = {}
 user_open_tickets = {}
 channel_metadata = {}
@@ -348,3 +348,4 @@ class TicketEmbed(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(TicketEmbed(bot))
+
