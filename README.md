@@ -69,7 +69,7 @@ APPEALS_ROLE_ID =  # Role IDs you want who can bypass moderation
 APPEALS_CATEGORY_ID = 1418366472476168302 # Channel ID where you want the appeals to be sent (WIP)
 ```
 
-~~In the ```Live_persons``` section, you need to fill out the channel you want alerts for and the roles you want to be alerted~~ (WIP at the moment, skip this step)
+~~In the ```Live_persons``` section, you need to fill out the channel you want alerts for and the roles you want to be alerted~~ ## (WIP at the moment, skip this step)
 ```
 - ALERT_CHANNEL_ID = # Where you want the bot to tell you a server has gone down
 - ALERT_ROLE_ID = # The role you want to get pinged when a server goes down
