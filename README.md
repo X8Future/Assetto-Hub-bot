@@ -136,7 +136,7 @@ python3 bot.py
 Normally, it start spitting out a few things, "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time, there will be a few errors just as it creates the first embeds for your server, but it should be good from there.
 
 # 📝 Commands
-### Command Name `/leaderboard`
+Command Name `/leaderboard`
 - This command will allow you to add a leaderboard to your custom channel ID
 
 Command Name `/wlo`
