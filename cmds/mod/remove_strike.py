@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 from datetime import datetime
 
-APPEALS_ROLE_ID = 1227668177106768003
+APPEALS_ROLE_ID = # Allowed role ID that can use this command 
 
 class RemoveStrike(commands.Cog):
     def __init__(self, bot, automod_cog):
@@ -54,3 +54,4 @@ async def setup(bot):
     if automod_cog is None:
         raise RuntimeError("AutoMod cog must be loaded before RemoveStrike.")
     await bot.add_cog(RemoveStrike(bot, automod_cog))
+
