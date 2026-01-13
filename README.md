@@ -136,7 +136,7 @@ python3 bot.py
 Normally, it start spitting out a few things, "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time, there will be a few errors just as it creates the first embeds for your server, but it should be good from there.
 
 # 📝 Commands
-Command Name `/leaderboard`
+### Command Name `/leaderboard`
 - This command will allow you to add a leaderboard to your custom channel ID
 
 Command Name `/wlo`
@@ -167,68 +167,52 @@ Command Name `/bannedlist`
 - Shows all banned SteamID's
 
 Command Name `/blacklist_remove`
-
-Remove a user from the blacklist
+- Remove a user from the blacklist
 
 Command Name `/appeals`
-
-Create the appeals embed in a channel of your choice
+- Create the appeals embed in a channel of your choice
 
 Command Name `/timeout`
-
-Will timeout a user for how long you want (#h #m #s format Ex: 1h 10m 20s)
+- Will timeout a user for how long you want (#h #m #s format Ex: 1h 10m 20s)
 
 Command Name `/removestrike`
-
-Will remove the # of strikes you choose for the user
+- Will remove the # of strikes you choose for the user
 
 Command Name `/load_cog`
-
-Will load any cog that is not loaded at the start of the bot
+- Will load any cog that is not loaded at the start of the bot
 
 Command Name `/reload_cog `
-
-Will allow you to refresh a cog if something isn't working
+- Will allow you to refresh a cog if something isn't working
 
 Command Name `/unload_cog`
-
-Will unload a cog, helpful for commands not used much to reduce bot traffic
+- Will unload a cog, helpful for commands not used much to reduce bot traffic
 
 Command Name `/removettimeout`
-
-Will remove the timeout of a user and allow you to choose if you want to remove a strike or not
+- Will remove the timeout of a user and allow you to choose if you want to remove a strike or not
 
 Command Name `/Whitelist`
-
-With V0.4 this command is now working! The /whitelist command will allow you to create a embed in any channel you like, allowing users to whitelist to a whitelist.db that will allow role updating and more
+- With V0.4 this command is now working! The /whitelist command will allow you to create a embed in any channel you like, allowing users to whitelist to a whitelist.db that will allow role updating and more
 
 Command Name `/server_status` & `/deletecounter`
-
-Allows you to create a tracker for Total number of poeple in the server and your Staff online, /deletecounter will delete the counter of your choice
+- Allows you to create a tracker for Total number of poeple in the server and your Staff online, /deletecounter will delete the counter of your choice
 
 Command Name `/creategiveaway` & `/endgiveaway `
-
-Will create a popup that will help you make a giveaway where you can speciy the prize, duration and number of winners, and /endgiveaway will allow you to select a giveaway you want to end early
+- Will create a popup that will help you make a giveaway where you can speciy the prize, duration and number of winners, and /endgiveaway will allow you to select a giveaway you want to end early
 
 Command Name `/setlogchannel`
-
-Sets the channel that all whitelisted users information is saved to
+- Sets the channel that all whitelisted users information is saved to
 
 Command Name `/showsteamusers`
-
-Creates an embed that shows all the users connected to the database listing out the discord account connected to the SteamID
+- Creates an embed that shows all the users connected to the database listing out the discord account connected to the SteamID
 
 Command Name `/sync_whitelist `
-
-Will take your hub.db and move all the users prevously whitelisted to that to your whitelist.db
+- Will take your hub.db and move all the users prevously whitelisted to that to your whitelist.db
 
 Command Name `/updaterequirementscore`
-
-Allows you to set a new score for a Tier, so if you wanted to update Whiteline from 1 million points to 2 million you would put /updaterequirementscore tier:Whiteline score:2M
+- Allows you to set a new score for a Tier, so if you wanted to update Whiteline from 1 million points to 2 million you would put /updaterequirementscore tier:Whiteline score:2M
 
 Command Name `/ticketbuilder `
-
-Sets the Channel where you want to put the ticket drop down
+- Sets the Channel where you want to put the ticket drop down
 
 
 # ✨ Customize
