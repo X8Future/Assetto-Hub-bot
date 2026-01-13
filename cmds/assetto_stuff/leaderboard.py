@@ -12,12 +12,12 @@ def clean_player_name(name: str) -> str:
     return re.sub(r'\s*\[.*?\]\s*', '', name).strip()
 
 
-DB_PATH = '/root/Bot-File/Hub.db'
-TARGET_CHANNEL_ID = 1189659213337723030
+DB_PATH = # full path of hub Ex:'/root/Bot-File/Hub.db'
+TARGET_CHANNEL_ID =  # ID of the channel you want to send the leaderboard to
 MESSAGE_ID_PATH = "leaderboard_message_id.json"
 MAX_FIELD_LENGTH = 1024
 
-ALLOWED_ROLE_IDS = [1251377219910242365]
+ALLOWED_ROLE_IDS = [] # Allowed role ID you want to be able to use the command
 ROLE_EMOJI_PRIORITY = [
     (1251377219910242365, "<:Staff:1394901391826485268>"),
     (1274637474471215201, "<:Lifetime:1394906121122353182>"),
@@ -27,7 +27,7 @@ ROLE_EMOJI_PRIORITY = [
     (1234733594941849632, "<:TIER1:1394901645128634419>"),
     (1257423714614644956, "<:Whiteline:1346388225337589823>")
 ]
-
+# Emojis you want used on your leaderboard and what will be shown first
 
 class Leaderboard(commands.Cog):
     def __init__(self, bot):
@@ -316,3 +316,4 @@ class LeaderboardView(discord.ui.View):
 
 async def setup(bot):
     await bot.add_cog(Leaderboard(bot))
+
