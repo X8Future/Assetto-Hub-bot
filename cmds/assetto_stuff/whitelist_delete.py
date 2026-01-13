@@ -7,10 +7,10 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-DATABASE = "/root/Files/whitelist.db"
-ALLOWED_ROLE_ID = 1196681600977616927
-MAX_ATTEMPTS = 0
-LOG_CHANNEL_ID = 1191990080550731866
+DATABASE = # Full path of hub Ex:'/root/Bot-File/Hub.db'
+ALLOWED_ROLE_ID =  # Allowed role ID that can use this command 
+MAX_ATTEMPTS = 0 # Sets the number of attempts used to 0 (DO NOT TOUCH)
+LOG_CHANNEL_ID =  # Set the channel ID you want it to be logged in here
 
 class DatabaseAdmin(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -92,3 +92,4 @@ class DatabaseAdmin(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(DatabaseAdmin(bot))
+
