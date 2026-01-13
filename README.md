@@ -137,44 +137,34 @@ Normally, it start spitting out a few things, "connecting using a static token" 
 
 # 📝 Commands
 Command Name `/leaderboard`
-
-This command will allow you to add a leaderboard to your custom channel ID
+- This command will allow you to add a leaderboard to your custom channel ID
 
 Command Name `/wlo`
-
-WLO will allow you to overwrite someones SteamID in the whitelist.db
+- wlo will allow you to overwrite someones SteamID in the whitelist.db
 
 Command Name `/check_whitelist`
-
-Checking whitelist will allow you to check someone's whitelist status to see what ID they connected to, how many times they have attempted to whitelist and more
+- Checking whitelist will allow you to check someone's whitelist status to see what ID they connected to, how many times they have attempted to whitelist and more
 
 Command Name `/remove_whitelist`
-
-Will remove a user from the database and give them a fresh chance to re-whitelist 
+- Will remove a user from the database and give them a fresh chance to re-whitelist 
 
 Command Name `/add_player_run`
-
-Will add a player run to the leaderboard if you remove the run and it was legit or someone is missing a run
+- Adds a player run to the leaderboard if you remove the run and it was legit or someone is missing a run
 
 Command Name `/remove_player`
-
-Will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord ID so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
+- Will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord ID so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
 
 Command Name `/serverembed`
-
-Will allow you to add a server embed with up to 5 servers (you can add more server slots). The bot supports Invite links instead of API's now. Invite1 is the first server, and so on, same with name1 and vip_slots1. VIP slots will show VIP slots if any, if there are no reserved slots just click no, VIP only slots will filter just VIP slots is you have a VIP only server. Embed includes Public Slots, Reserved slots, VIP only slots, Time of server, Weather of server, and the Join Link. Embed color and thumbnail can also be chosen. 
+- This command creates a server embed (up to 5 servers) using invite links. Numbered inputs map to each server and the embed shows slot types, server time, weather, and a join link, with customizable color and thumbnail.
 
 Command Name `/enablewelcome`&`/welcomeset` 
-```
-Enablewelocome will enable the command for and start sending welcome messages to new users to the server, welcomeset will allow you to move the channel you want the welcome messages
-```
-Command Name `/ban_user`
+- Enablewelocome will enable the command for and start sending welcome messages to new users to the server, welcomeset will allow you to move the channel you want the welcome messages
 
-Allows you to ban a user on multiple servers through the blacklist.txt with just the SteamID
+Command Name `/ban_user`
+- Allows you to ban a user on multiple servers through the blacklist.txt with just the SteamID
 
 Command Name `/bannedlist`
-
-Shows all banned SteamID's
+- Shows all banned SteamID's
 
 Command Name `/blacklist_remove`
 
