@@ -5,9 +5,9 @@ import aiosqlite, aiohttp, asyncio, os, paramiko, aiofiles, json
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-STEAM_API_KEY = "90F58ADF94ED68134923FA78E07F7486"
+STEAM_API_KEY = "" # Your Steam API Key
 DATABASE = "whitelist.db"
-MAX_ATTEMPTS = 2
+MAX_ATTEMPTS = 2 # Set the total number of attempts a user can take to whitelist
 MAX_CONCURRENT_STEAM = 5
 INPUT_TIMEOUT = 120
 UPLOAD_RETRIES = 3
@@ -21,12 +21,15 @@ ROLE_MAPPING = {
     "Tier 2": [1251377219910242365, 1292376553526661170, 1274637474471215201, 1229907065074487362, 1234733909158264914],
     "Tier 1": [1229900492759503002, 1234733594941849632],
 }
+# Mapping for VIP tiers to be done instantly
 
 TIER_PRIORITY = ["Lifetime", "Tier 2", "Tier 1"]
+# Set priority so that users with multiple roles will only get the highest role
 
 ENDPOINTS = [
-    {"host": "37.27.32.68", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Bot-File"},
+    {"host": "37.27.32.68", "username": "root", "password": "", "remote_path": "/root/Bot-File"},
 ]
+# Hub endpoint required to upload the txt's 
 
 class WhitelistCog(commands.Cog):
     def __init__(self, bot):
@@ -314,3 +317,4 @@ class WhitelistCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(WhitelistCog(bot))
+
