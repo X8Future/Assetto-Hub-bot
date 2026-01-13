@@ -6,29 +6,9 @@ import os
 
 BLACKLIST_FILE = "blacklist.txt"
 ENDPOINTS = [
-    {"host": "5.78.113.173", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Spec/blacklist.txt"},
-    {"host": "5.78.103.54", "username": "root", "password": "Puppo4pres", "remote_path": "/root/FDR/blacklist.txt"},
-    {"host": "5.78.93.251", "username": "root", "password": "Puppo4pres", "remote_path": "/root/C&R/blacklist.txt"},
-    {"host": "5.78.93.251", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Content Preview/blacklist.txt"},
-    {"host": "5.78.93.251", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Whiteline/blacklist.txt"},
-    {"host": "5.78.115.40", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Drift SRP/blacklist.txt"},
-    {"host": "5.78.115.40", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Drift/blacklist.txt"},
-    {"host": "91.99.6.152", "username": "root", "password": "Puppo4pres", "remote_path": "/root/FDR/blacklist.txt"},
-    {"host": "91.99.6.152", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Hamburg C&R/blacklist.txt"},
-    {"host": "91.99.6.152", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Hamburg Public/blacklist.txt"},
-    {"host": "65.108.249.168", "username": "root", "password": "Puppo4pres", "remote_path": "/root/EU SRP/blacklist.txt"},
-    {"host": "65.108.249.168", "username": "root", "password": "Puppo4pres", "remote_path": "/root/EU DLC Server/blacklist.txt"},
-    {"host": "5.78.103.54", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Horizon/blacklist.txt"},
-    {"host": "5.78.129.133", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Freeroam/blacklist.txt"},
-    {"host": "5.78.129.133", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Sandbox/blacklist.txt"},
-    {"host": "5.78.75.101", "username": "root", "password": "Puppo4pres", "remote_path": "/root/German/blacklist.txt"},
-    {"host": "5.78.75.101", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Hamburg Public/blacklist.txt"},
-    {"host": "5.78.75.101", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Hamburg C&R/blacklist.txt"},
-    {"host": "5.78.46.52", "username": "root", "password": "Puppo4pres", "remote_path": "/root/NA Non DLC/blacklist.txt"},
-    {"host": "5.78.46.52", "username": "root", "password": "Puppo4pres", "remote_path": "/root/SRP/blacklist.txt"},
-    {"host": "5.78.113.173", "username": "root", "password": "Puppo4pres", "remote_path": "/root/JDM/blacklist.txt"},
-    {"host": "37.27.32.68", "username": "root", "password": "Puppo4pres", "remote_path": "/root/Bot-File/blacklist.txt"},
+    {"host": "37.27.32.68", "username": "root", "password": "", "remote_path": "/root/Bot-File/blacklist.txt"},
 ]
+# Your endpoints you want to send the new blacklist files to (Only requires the hub)
 
 class ChangeTxt(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -105,3 +85,4 @@ class ChangeTxt(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(ChangeTxt(bot))
+
