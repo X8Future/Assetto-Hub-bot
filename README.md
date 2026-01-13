@@ -85,11 +85,11 @@ EX: SCORE_ROLE_IDS = {
     "certifiedwhiteline": 1186780889552789504,
 }
 ```
-Head over to the Forums section and read through the ```INFO.txt```. This will help you sort through the folders and decide what needs to be changed and updated. 
+Head over to the Forums section and read through the ```README.md```. This will help you sort through the folders and decide what needs to be changed and updated. 
 ```
 - Things to Edit: 
-        - self.api_urls = [] # Put your API URL's for your servres Ex: "http://91.99.6.152:80811/INFO" (ServerIP:Port/INFO)
-        - "https://futurecrew.sirv.com/images/fdr/{i}.png" # The link for the photos, This is the newer version where all links are the same but the number at the end, see ```INFO.txt``` for more info
+        - self.api_urls = [] # Put your API URL's for your servres Ex: "http://91.99.6.152:8081/INFO" (ServerIP:Port/INFO)
+        - "https://futurecrew.sirv.com/images/fdr/{i}.png" # The link for the photos, This is the newer version where all links are the same but the number at the end, see ```README.md``` for more info
         - name="Cops and Robbers Public", # Change the thread Name to what you want it to be
 ```
 
