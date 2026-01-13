@@ -8,35 +8,22 @@ import json
 import os
 
 IMMUNE_ROLES = {1251377219910242365}
-HARD_BAD_WORDS = [
-    "fuck", "shit", "bitch", "asshole", "dick", "cunt", "nigger", "faggot", "slut", "whore",
-    "porn", "sex", "cock", "pussy", "nigga", "hoe", "douche", "twat", "rape"
-]
-BAD_WORD_KEYWORDS = ["sex", "porn", "erotic", "hentai", "nude", "cam", "xxx"]
-HARD_BLOCKED_DOMAINS = [
-    "pornhub.com", "xvideos.com", "xnxx.com", "redtube.com", "youporn.com", "tube8.com",
-    "spankbang.com", "adultfriendfinder.com", "beeg.com", "hentaihaven.org", "rule34.xxx", "onlyfans.com"
-]
-ADULT_SITE_KEYWORDS = ["porn", "xxx", "sex", "hentai", "adult", "tube", "erotic", "cam"]
-WHITELISTED_INVITES = {
-    "discord.gg/futurecrew",
-    "discord.gg/nohesi",
-    "discord.gg/teamgetactive",
-    "discord.gg/5KjwpzrKyN",
-    "discord.gg/shutokorevivalproject",
-    "discord.gg/ETRpbujrJn",
-    "discord.gg/highspeed",
-    "discord.gg/D7f84sMNRg"
-}
-IMAGE_SPAM_LIMIT = 5
-IMAGE_SPAM_INTERVAL = 10
-WORD_SPAM_LIMIT = 5
+HARD_BAD_WORDS = [] # Words that are hard-coded to be automatically blocked (can't upload them here cause GITHUB will take down the Repo)
+BAD_WORD_KEYWORDS = [] # Words that close to these words you want automatically blocked (can't upload them here cause GITHUB will take down the Repo)
+HARD_BLOCKED_DOMAINS = [] # Websites you want to be automatically blocked (can't upload them here cause GITHUB will take down the Repo)
+ADULT_SITE_KEYWORDS = []  # Website words you want to be automatically blocked (can't upload them here cause GITHUB will take down the Repo)
+WHITELISTED_INVITES = {}
+# Invites you want to be allowed to use
+
+IMAGE_SPAM_LIMIT = 5 # How many images in the interval can be sent before action is taken
+IMAGE_SPAM_INTERVAL = 10 # Invertvual where the spam limit is in effect
+WORD_SPAM_LIMIT = 5 # How often in the time limit messages can be sent
 WORD_SPAM_INTERVAL = 10
-STRIKE_DURATION_DAYS = 90
-BYPASS_CHANNELS = {1229329019850457118, 1229329089941340251, 1229329337400954911}
+STRIKE_DURATION_DAYS = 90 # Set how long strikes last for
+BYPASS_CHANNELS = {} # Channel IDs you can bypass this moderation 
 STRIKE_FILE = "strikes.json"
-APPEALS_ROLE_ID = 1227668177106768003
-APPEALS_CATEGORY_ID = 1418366472476168302
+APPEALS_ROLE_ID =  # Role IDs you want who can bypass moderation 
+APPEALS_CATEGORY_ID = 1418366472476168302 # Channel ID where you want the appeals to be sent (WIP)
 
 
 class AutoMod(commands.Cog):
@@ -270,3 +257,4 @@ class AppealButton(ui.Button):
 
 async def setup(bot):
     await bot.add_cog(AutoMod(bot))
+
