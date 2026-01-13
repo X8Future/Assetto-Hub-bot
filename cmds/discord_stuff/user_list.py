@@ -8,10 +8,10 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 DATABASE = "whitelist.db"
-USERS_PER_PAGE = 25  # Max per embed due to Discord field limit
-ADMIN_ROLE_ID = 1251377219910242365
+USERS_PER_PAGE = 25
+ADMIN_ROLE_ID =  # Allowed role ID that can use this command 
 PERSIST_FILE = "whitelist_pagination.json"
-UPDATE_INTERVAL = 300  # 5 minutes
+UPDATE_INTERVAL = 300 
 
 
 class ShowSteamUsersCog(commands.Cog):
@@ -356,3 +356,4 @@ class ShowSteamUsersCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ShowSteamUsersCog(bot))
+
