@@ -12,7 +12,7 @@ intents.presences = True
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="/", intents=intents)
-GUILD_ID = 1176727481634541608
+GUILD_ID =  # Set your Guild ID (Also known as the server ID)
 GUILD = discord.Object(id=GUILD_ID)
 
 
@@ -71,3 +71,4 @@ if __name__ == "__main__":
     if not token:
         raise ValueError("❌ DISCORD_TOKEN not found in environment variables.")
     bot.run(token)
+
