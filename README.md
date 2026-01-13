@@ -180,7 +180,7 @@ Command Name `/removestrike`
 - Will remove the # of strikes you choose for the user
 
 Command Name `/load_cog`
-- Will load any cog that is not loaded at the start of the bot
+- Will load any cog that is not loaded at the start of the bot (If you mass load the cogs you will get rate-limited, this is nothing to worry about, it will go away once everything has loaded)
 
 Command Name `/reload_cog `
 - Will allow you to refresh a cog if something isn't working
