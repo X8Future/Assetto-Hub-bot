@@ -10,9 +10,9 @@ DATABASE = # Full path of hub Ex: "/root/Files/whitelist.db"
 TXT_DIR = "./special_roles_txts"
 
 SPECIAL_ROLES = {
-    "Staff": 1251377219910242365,
-    "Dev": 1229301507233550419,
-    "Content Creator": 1252107734481113149
+    "Staff": ,
+    "Dev": ,
+    "Content Creator": 
 }
 # Set the roles you want to be specially read and made, for instance, this code has a Staff role, Developer role and content creator role
 
@@ -26,7 +26,7 @@ ENDPOINTS = [
     {
         "host": "37.27.32.68",
         "username": "root",
-        "password": "Puppo4pres",
+        "password": "",
         "remote_path": "/root/Bot-File/special_roles",
     },
 ]
@@ -125,4 +125,5 @@ class SpecialRoleWhitelist(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(SpecialRoleWhitelist(bot))
+
 
