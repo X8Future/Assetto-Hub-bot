@@ -6,8 +6,8 @@ import os
 import asyncio
 from datetime import datetime, timedelta
 
-CATEGORY_ID = 1196682996514836541
-STAFF_ROLE_ID = 1196681600977616927
+CATEGORY_ID =  # The Category ID where you want the channels to be made
+STAFF_ROLE_ID =  # Role ID you want the bot to track for Staff 
 CHANNEL_IDS_FILE = "server_status_channels.json"
 MIN_UPDATE_INTERVAL = 120 
 
@@ -201,3 +201,4 @@ class ServerStatusVoiceCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ServerStatusVoiceCog(bot))
+
