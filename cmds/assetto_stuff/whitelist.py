@@ -12,14 +12,14 @@ MAX_CONCURRENT_STEAM = 5
 INPUT_TIMEOUT = 120
 UPLOAD_RETRIES = 3
 UPLOAD_RETRY_DELAY = 1
-ADMIN_ROLE_ID = 1229301507233550419
+ADMIN_ROLE_ID = # Allowed role ID that can use this command (just the ID, no quotes)
 ROLE_TXT_DIR = "./steam_roles/"
 CHANNEL_JSON = "log_channel.json"
 
 ROLE_MAPPING = {
-    "Lifetime": [1274637474471215201, 1292376553526661170],
-    "Tier 2": [1251377219910242365, 1292376553526661170, 1274637474471215201, 1229907065074487362, 1234733909158264914],
-    "Tier 1": [1229900492759503002, 1234733594941849632],
+    "Lifetime": [, ],
+    "Tier 2": [, ,],
+    "Tier 1": [, ],
 }
 # Mapping for VIP tiers to be done instantly
 
@@ -317,4 +317,5 @@ class WhitelistCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(WhitelistCog(bot))
+
 
