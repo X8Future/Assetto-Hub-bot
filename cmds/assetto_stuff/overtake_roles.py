@@ -14,6 +14,7 @@ SCORE_ROLE_IDS = {
     "verifiedwhiteline": 1257423330395422844,
     "certifiedwhiteline": 1186780889552789504,
 }
+# IDs of the roles you are matching them to in DISCORD 
 
 PLACE_ROLES = {
     1: 1257422882112409801,
@@ -21,10 +22,11 @@ PLACE_ROLES = {
     5: 1257422806464069743,
     10: 1230966911425187982,
 }
+# If you have roles based on place same thing, the role ID's your going to use
 
-HUB_DB = "/root/Bot-File/Hub.db"
+HUB_DB = # Full path of hub Ex:"/root/Bot-File/Hub.db"
 WHITELIST_DB = "/root/Files/whitelist.db"
-
+# Location where you whitelist.db file is located (should be in the main folder with all the other .jsons and bot.py file)
 TXT_DIR = "./leaderboard_txts"
 UPLOAD_RETRIES = 3
 UPLOAD_RETRY_DELAY = 1
@@ -37,6 +39,7 @@ ENDPOINTS = [
         "remote_path": "/root/Bot-File",
     },
 ]
+# Required Hub endpoint to send and get the roles to upload to all servers (only need hub endpoint)
 
 SCORE_JSON_FILE = "score_requirements.json"
 
@@ -45,6 +48,7 @@ DEFAULT_SCORES = {
     "verifiedwhiteline": 2_500_000,
     "certifiedwhiteline": 4_000_000,
 }
+# Set the default scores you want for the people to get these roles
 
 POSITION_FILES = {
     "Top10": "top10.txt",
@@ -52,7 +56,7 @@ POSITION_FILES = {
     "Top3": "top3.txt",
     "Champion": "champion.txt",
 }
-
+# The txt files you want uploaded (make sure they are the same that your servers are reading for the user groups)
 
 def parse_score(value: str) -> int:
     value = value.upper().replace(",", "").strip()
@@ -253,3 +257,4 @@ class LeaderboardRoleSync(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(LeaderboardRoleSync(bot))
+
