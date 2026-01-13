@@ -6,7 +6,7 @@ import aiosqlite
 import asyncio
 import paramiko
 
-DATABASE = "/root/Files/whitelist.db"
+DATABASE = # Full path of hub Ex: "/root/Files/whitelist.db"
 TXT_DIR = "./special_roles_txts"
 
 SPECIAL_ROLES = {
@@ -14,13 +14,14 @@ SPECIAL_ROLES = {
     "Dev": 1229301507233550419,
     "Content Creator": 1252107734481113149
 }
+# Set the roles you want to be specially read and made, for instance, this code has a Staff role, Developer role and content creator role
 
 SPECIAL_ROLE_FILES = {
     "Staff": "staff.txt",
     "Dev": "dev.txt",
     "Content Creator": "content_creator.txt"
 }
-
+# Files for the corresponding roles
 ENDPOINTS = [
     {
         "host": "37.27.32.68",
@@ -29,7 +30,7 @@ ENDPOINTS = [
         "remote_path": "/root/Bot-File/special_roles",
     },
 ]
-
+# Upload point sending to the hub to send to all servers
 UPLOAD_RETRIES = 3
 UPLOAD_RETRY_DELAY = 1
 
@@ -124,3 +125,4 @@ class SpecialRoleWhitelist(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(SpecialRoleWhitelist(bot))
+
