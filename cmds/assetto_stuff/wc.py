@@ -3,7 +3,7 @@ from discord.ext import commands
 import sqlite3
 import os
 
-DB_PATH = '/root/Files/whitelist.db'
+DB_PATH = # Full path of hub Ex:'/root/Bot-File/Hub.db'
 
 async def setup(bot: commands.Bot):
     @bot.tree.command(
@@ -69,3 +69,4 @@ async def setup(bot: commands.Bot):
         except Exception as e:
             print(f"Error checking whitelist: {e}")
             await interaction.response.send_message("❌ An error occurred while checking the whitelist.", ephemeral=True)
+
