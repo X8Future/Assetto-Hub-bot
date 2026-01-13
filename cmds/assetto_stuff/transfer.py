@@ -2,9 +2,9 @@ import sqlite3
 import discord
 from discord.ext import commands
 
-HUB_DB_PATH = "/root/Bot-File/Hub.db"
-WHITELIST_DB_PATH = "/root/Files/whitelist.db"
-ADMIN_ROLE_ID = 1229301507233550419 
+HUB_DB_PATH = DB_PATH = # Full path of hub Ex:"/root/Bot-File/Hub.db"
+WHITELIST_DB_PATH = "" # Full path of your WHITELIST database, not the hub Ex: /root/Files/whitelist.db
+ADMIN_ROLE_ID = 1229301507233550419 # Allowed role ID that can use this command (just the ID, no quotes)
 
 
 class SyncWhitelistCog(commands.Cog):
@@ -93,3 +93,4 @@ class SyncWhitelistCog(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(SyncWhitelistCog(bot))
+
