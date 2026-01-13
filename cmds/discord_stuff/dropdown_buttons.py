@@ -1,3 +1,5 @@
+# WIP Command, disregard for the time being
+
 import discord
 from discord.ext import commands
 from discord import app_commands
@@ -112,3 +114,4 @@ class EmbedContextCommands(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(EmbedContextCommands(bot))
+
