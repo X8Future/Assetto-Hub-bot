@@ -137,109 +137,109 @@ Normally, it start spitting out a few things, "connecting using a static token" 
 
 # 📝 Commands
 Command Name `/leaderboard`
-```
+
 This command will allow you to add a leaderboard to your custom channel ID
-```
+
 Command Name `/wlo`
-```
+
 WLO will allow you to overwrite someones SteamID in the whitelist.db
-```
+
 Command Name `/check_whitelist`
-```
+
 Checking whitelist will allow you to check someone's whitelist status to see what ID they connected to, how many times they have attempted to whitelist and more
-```
+
 Command Name `/remove_whitelist`
-```
+
 Will remove a user from the database and give them a fresh chance to re-whitelist 
-```
+
 Command Name `/add_player_run`
-```
+
 Will add a player run to the leaderboard if you remove the run and it was legit or someone is missing a run
-```
+
 Command Name `/remove_player`
-```
+
 Will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord ID so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
-```
+
 Command Name `/serverembed`
-```
+
 Will allow you to add a server embed with up to 5 servers (you can add more server slots). The bot supports Invite links instead of API's now. Invite1 is the first server, and so on, same with name1 and vip_slots1. VIP slots will show VIP slots if any, if there are no reserved slots just click no, VIP only slots will filter just VIP slots is you have a VIP only server. Embed includes Public Slots, Reserved slots, VIP only slots, Time of server, Weather of server, and the Join Link. Embed color and thumbnail can also be chosen. 
-```
+
 Command Name `/enablewelcome`&`/welcomeset` 
 ```
 Enablewelocome will enable the command for and start sending welcome messages to new users to the server, welcomeset will allow you to move the channel you want the welcome messages
 ```
 Command Name `/ban_user`
-```
+
 Allows you to ban a user on multiple servers through the blacklist.txt with just the SteamID
-```
+
 Command Name `/bannedlist`
-```
+
 Shows all banned SteamID's
-```
+
 Command Name `/blacklist_remove`
-```
+
 Remove a user from the blacklist
-```
+
 Command Name `/appeals`
-```
+
 Create the appeals embed in a channel of your choice
-```
+
 Command Name `/timeout`
-```
+
 Will timeout a user for how long you want (#h #m #s format Ex: 1h 10m 20s)
-```
+
 Command Name `/removestrike`
-```
+
 Will remove the # of strikes you choose for the user
-```
+
 Command Name `/load_cog`
-```
+
 Will load any cog that is not loaded at the start of the bot
-```
+
 Command Name `/reload_cog `
-```
+
 Will allow you to refresh a cog if something isn't working
-```
+
 Command Name `/unload_cog`
-```
+
 Will unload a cog, helpful for commands not used much to reduce bot traffic
-```
+
 Command Name `/removettimeout`
-```
+
 Will remove the timeout of a user and allow you to choose if you want to remove a strike or not
-```
+
 Command Name `/Whitelist`
-```
+
 With V0.4 this command is now working! The /whitelist command will allow you to create a embed in any channel you like, allowing users to whitelist to a whitelist.db that will allow role updating and more
-```
+
 Command Name `/server_status` & `/deletecounter`
-```
+
 Allows you to create a tracker for Total number of poeple in the server and your Staff online, /deletecounter will delete the counter of your choice
-```
+
 Command Name `/creategiveaway` & `/endgiveaway `
-```
+
 Will create a popup that will help you make a giveaway where you can speciy the prize, duration and number of winners, and /endgiveaway will allow you to select a giveaway you want to end early
-```
+
 Command Name `/setlogchannel`
-```
+
 Sets the channel that all whitelisted users information is saved to
-```
+
 Command Name `/showsteamusers`
-```
+
 Creates an embed that shows all the users connected to the database listing out the discord account connected to the SteamID
-```
+
 Command Name `/sync_whitelist `
-```
+
 Will take your hub.db and move all the users prevously whitelisted to that to your whitelist.db
-```
+
 Command Name `/updaterequirementscore`
-```
+
 Allows you to set a new score for a Tier, so if you wanted to update Whiteline from 1 million points to 2 million you would put /updaterequirementscore tier:Whiteline score:2M
-```
+
 Command Name `/ticketbuilder `
-```
+
 Sets the Channel where you want to put the ticket drop down
-```
+
 
 # ✨ Customize
 This bot is fully customizable, and you’re free to modify almost anything.
