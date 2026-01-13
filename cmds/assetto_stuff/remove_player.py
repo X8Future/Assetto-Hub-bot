@@ -3,8 +3,8 @@ from discord.ext import commands
 import sqlite3
 from discord import app_commands
 
-DB_PATH = '/root/Bot-File/Hub.db'
-ALLOWED_ROLE_IDS = [1251377219910242365]
+DB_PATH = # full path of hub Ex:'/root/Bot-File/Hub.db'
+ALLOWED_ROLE_IDS = [] # Allowed role ID that can use this command 
 
 class LeaderboardRemove(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -104,3 +104,4 @@ class LeaderboardRemove(commands.Cog):
 async def setup(bot: commands.Bot):
     await bot.add_cog(LeaderboardRemove(bot))
     await bot.tree.sync()
+
