@@ -1,21 +1,23 @@
-# Future Crew Add on bot
+# Future Crew Discord Add-on bot
 
-An Assetto Corsa bot that connects to your Assetto Server Hub to make custom leaderboards, whitelist edits, player count forums and so much more with the latest Discord.py
+An Assetto Corsa discord bot that connects to your Assetto Server Hub to make custom leaderboards, whitelists, edits to player information, player count forums, and so much more with in the latest Discord.py.
 
-Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserver.org/patreon-docs/plugins/PatreonHubPlugin). Must have that to use the bot [information here](https://assettoserver.org/patreon-docs/assettoserver-hub/)
+Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserver.org/patreon-docs/plugins/PatreonHubPlugin). Must have Assetto Server bot to use ALL functionsailty, can use without it however some features may not work as well.[information here](https://assettoserver.org/patreon-docs/assettoserver-hub/)
 
 # ❗ Disclaimer
 Code is made and tested in Future Crew servers™. Code is written by an AMATEUR and should be treated as such, some parts may not make sense, be redundant, or just not work. 
 Updates are pushed when I feel like it. Some issues may never be fixed and some may be updated or addressed in the next update or bug fix 
+**NOT** a standalone Assetto Corsa bot. Some features integrate with the Assetto Hub, including faster file transfers to servers and leaderboard data pulled from the Hub database and reformatted for display. It can work with other database setups, but the logic will need adjustments. 
 ### USE AT YOUR OWN RISK...
 
-Written on `Windows` enviroment and `Ubuntu` enviroment.
-The bot currently runs on an Ubuntu system but shoiuld be just fine on Windows 10/11
+Written on `Windows` environment and `Ubuntu` environment.
+The bot currently runs on an Ubuntu system, but should be just fine on Windows 10/11
 
 
 # ⚙️ Configuration
 ## Make sure to check wherever there is a # to see what it says. 
-Most of the time, it will be telling you information you need to fill out. V0.5 should fix a lot of the commonly used function parts and should reduce setup time
+Most of the time, it will be telling you information you need to fill out. 
+-# V0.5 should fix a lot of the commonly used function parts and should reduce setup time
 In the .env
 ```
 DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
