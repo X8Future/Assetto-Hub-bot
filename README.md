@@ -6,8 +6,9 @@ Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserv
 
 # ❗ Disclaimer
 Code is made and tested in Future Crew servers™. Code is written by an AMATEUR and should be treated as such; some parts may not make sense, be redundant, or just not work. 
-Updates are pushed when I feel like it. Some issues may never be fixed, and some may be updated or addressed in the next update or bug fix 
-**NOT** a standalone Assetto Corsa bot. Some features integrate with the Assetto Hub, including faster file transfers to servers and leaderboard data pulled from the Hub database and reformatted for display. It can work with other database setups, but the logic will need adjustments. 
+Updates are pushed when I feel like it. Some issues may never be fixed, and some may be updated or addressed in the next update or bug fix. 
+
+**NOT** a standalone Assetto Corsa bot. Some features are integrated with the Assetto Hub, including faster file transfers to servers and leaderboard data pulled from the Hubs database. Bot doesnt need to be with the hub, but the logic will need adjustments to be able to work. 
 ### USE AT YOUR OWN RISK...
 
 Written on `Windows` environment and `Ubuntu` environment.
@@ -15,12 +16,12 @@ The bot currently runs on an Ubuntu system, but should be just fine on Windows 1
 
 
 # ⚙️ Configuration
-## Make sure to check wherever there is a # to see what it says. 
+## Make sure to check wherever there is a # to see what it says, 
 Most of the time, it will be telling you information you need to fill out. 
 ###### V0.5 should fix a lot of the commonly used function parts and should reduce setup time
 In the .env
 ```
-DISCORD_TOKEN= Your Bot Token from the discord developer dashboard
+DISCORD_TOKEN= Your Bot Token from the Discord developer dashboard 
 GUILD_ID= # Your Guild ID (also known as the Server ID)
 APPLICATION_ID= # Your Client ID NOT to be confused with your Client Secret
 ```
@@ -29,7 +30,7 @@ Go through each of the commands and fill out the ```DB_PATH =``` or ```db_path =
 Ex: DB_PATH = '/root/Bot-File/Hub.db'
 ```
 
-Head over to [Steam api key](https://steamcommunity.com/dev/apikey), and sign up for an API key (required for the bot to check Steam ID status)
+Head over to [Steam api key](https://steamcommunity.com/dev/apikey), and sign up for an API key **(required)**
 ```
 Put in Add-run.py, wlo.py, and whitelist.py
 ```
@@ -37,20 +38,20 @@ Put in Add-run.py, wlo.py, and whitelist.py
 In the ```remove_player.py```, ```wlo.py```, ```transfer.py```, ```whitelist.py```, ```embedbuilder.py```, ```user_list.py```, ```check_bans.py
 ```, and ```whitelist_delete.py```
 ```
-ALLOWED_ROLE_ID = enter role ID Ex: 123456789012345678, make sure if there is a syntax you put it INSIDE of them
+ALLOWED_ROLE_ID = enter role ID Ex: 123456789012345678, make sure if there are brackets, you put it INSIDE of them
 ```
 The bot should create this file when run, but if not create the file below in the commands section
 ```
 "leaderboard_message_id.json"
 ```
-In the ```leaderboard.py``` you need to add emoji and role info, to do this get the emoji name and number, then also get the role id you want to match your emoji
+In the ```leaderboard.py``` you need to add emoji and role info. To do this, get the emoji name and number, then also get the role id you want to match your emoji
 ```
 Ex: ROLE_EMOJI_PRIORITY = [
     (1384629851037468673, "<:Staff:1394901391826485268>"),
     (1273948572638492817, "<:Lifetime:1394906121122353182>"),
 ]
 ```
-In the ```ban_user.py```, ```overtake_roles.py```, ```staff.py```, ```whitelist.py``` and ```changetxt.py``` you need to fill out the ```ENDPOINTS``` data for the bot to access and edit your blacklist.txt's
+In the ```ban_user.py```, ```overtake_roles.py```, ```staff.py```, ```whitelist.py```, and ```changetxt.py```, you need to fill out the ```ENDPOINTS``` data for the bot to access and edit your blacklist.txt's
 ```
 EX: ENDPOINTS = [
     {"host": "123.45.678", "username": "root", "password": "Password", "remote_path": "/root/Servername/blacklist.txt"},]
@@ -62,7 +63,7 @@ In the ```automod.py``` fill out each of the spaces
 ```
 IMMUNE_ROLES = {} # Roles immune to automod
 HARD_BAD_WORDS = [] # Words that are hard-coded to be automatically blocked (can't upload them here cause GITHUB will take down the Repo)
-BAD_WORD_KEYWORDS = [] # Words that close to these words you want automatically blocked (can't upload them here cause GITHUB will take down the Repo)
+BAD_WORD_KEYWORDS = [] # Words that are close to these words you want automatically blocked (can't upload them here cause GITHUB will take down the Repo)
 HARD_BLOCKED_DOMAINS = [] # Websites you want to be automatically blocked (can't upload them here cause GITHUB will take down the Repo)
 ADULT_SITE_KEYWORDS = []  # Website words you want to be automatically blocked (can't upload them here cause GITHUB will take down the Repo)
 WHITELISTED_INVITES = {} # Invites you want to be allowed to use
@@ -79,7 +80,7 @@ APPEALS_CATEGORY_ID =  # Channel ID where you want the appeals to be sent
 - ALERT_USER = "<@>" # If you want a person to be pinged as well as a role
 ```
 
-In the ```overtake_roles.py``` & the ```staff.py``` Fill out the ``ROLE_IDS`` Section
+In the ```overtake_roles.py``` & the ```staff.py``` Fill out the ``ROLE_IDS`` Section update the Role_IDs section to your roles
 ```
 EX: SCORE_ROLE_IDS = {
     "whiteline": 1257423714614644956,
@@ -87,18 +88,19 @@ EX: SCORE_ROLE_IDS = {
     "certifiedwhiteline": 1186780889552789504,
 }
 ```
-Head over to the Forums section and read through the ```README.md```. This will help you sort through the folders and decide what needs to be changed and updated. 
+Head over to the Forums section and read through the ```README.md```. This will help you understand the 2 kinds of forum updaters 
 ```
 - Things to Edit: 
         - self.api_urls = [] # Put your API URL's for your servres Ex: "http://91.99.6.152:8081/INFO" (ServerIP:Port/INFO)
-        - "https://futurecrew.sirv.com/images/fdr/{i}.png" # The link for the photos, This is the newer version where all links are the same but the number at the end, see ```README.md``` for more info
+        - "https://futurecrew.sirv.com/images/fdr/{i}.png" # The link for the photos. This is the newer version where all links are the same, but the number at the end, see ```README.md``` for more info
         - name="Cops and Robbers Public", # Change the thread Name to what you want it to be
 ```
 
-# ⏬ Installation
-Install python [using](https://www.python.org/downloads/) 
-For Ubuntu: sudo apt update && sudo apt install python3
-
+# ⏬ Installation ``Ubuntu``
+Install Python; [Link if needed](https://www.python.org/downloads/) 
+```
+sudo apt update && sudo apt install python3
+```
 Install discord.py and dotenv to be able to start the bot
 ```
 pip install discord.py python-dotenv
@@ -111,7 +113,7 @@ pip install discord.py requests
 pip install discord.py aiosqlite pytz
 sudo dnf install python3-aiofiles
 ```
-
+###### 
 # 🤖 Running the Bot
 
 Make sure you're in the central file for the bot 
