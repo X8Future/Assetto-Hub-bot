@@ -2,7 +2,7 @@
 
 An Assetto Corsa discord bot that connects to your Assetto Server Hub to make custom leaderboards, whitelists, edits to player information, player count forums, and so much more with the latest Discord.py.
 
-Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserver.org/patreon-docs/plugins/PatreonHubPlugin). Must have Assetto Server bot to use ALL functionsailty, can use without it however, some features may not work as well.[information here](https://assettoserver.org/patreon-docs/assettoserver-hub/)
+Connects to the Assetto Server Hub made by [Assetto Servers](https://assettoserver.org/patreon-docs/plugins/PatreonHubPlugin). Must have Assetto Server bot to use ALL functionsailty, can use without it however, some features may not work as well. [Information here](https://assettoserver.org/patreon-docs/assettoserver-hub/)
 
 # ❗ Disclaimer
 Code is made and tested in Future Crew servers™. Code is written by an AMATEUR and should be treated as such; some parts may not make sense, be redundant, or just not work. 
@@ -113,7 +113,7 @@ pip install discord.py requests
 pip install discord.py aiosqlite pytz
 sudo dnf install python3-aiofiles
 ```
-###### 
+###### If you're missing a dependancy put it in the issues so I can update it
 # 🤖 Running the Bot
 
 Make sure you're in the central file for the bot 
@@ -126,7 +126,7 @@ cd ..\Assetto-Hub-bot-main
 cd ../Assetto-Hub-bot-main
 ```
 
-Make sure you deploy the command from the main file and not from the commands file, or it won't run
+Make sure you deploy bot.py from the main file and not from the commands file, or it won't run
 
 You can start the Bot `WINDOWS`
 ```
@@ -138,7 +138,7 @@ For `UBUNTU` servers
 python3 bot.py
 ```
 
-Normally, it start spitting out a few things, "connecting using a static token" connected to "bot user name" and a few other things. If you see that you should be good to go, if you are running the bot for the first time, there will be a few errors just as it creates the first embeds for your server, but it should be good from there.
+Normally, it start spitting out a few things, "connecting using a static token" connected to "bot user name" and a few other things. If you see that everything is in order, you should be good to go. If you are running the bot for the first time, there will be a few errors as it creates the initial .json files. I recommend restarting the bot after a few minutes so it can run with all the .json files and the whitelist.db created. It should be smooth from there.
 
 # 📝 Commands
 Command Name `/leaderboard`
@@ -151,52 +151,52 @@ Command Name `/check_whitelist`
 - Checking the whitelist will allow you to check someone's whitelist status to see what ID they connected to, how many times they have attempted to whitelist, and more
 
 Command Name `/remove_whitelist`
-- Will remove a user from the database and give them a fresh chance to re-whitelist 
+- Removes a user from the database and gives them a fresh chance to re-whitelist 
 
 Command Name `/add_player_run`
-- Adds a player run to the leaderboard if you remove the run and it was legit or someone is missing a run
+- Adds a player run to the leaderboard if you removed the run and it was legit, or someone's run is missing
 
 Command Name `/remove_player`
-- Will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing you put an option for either steam ID or discord ID so the bot will know what to look for, then select player_id for steam id or discord_user for a user already whitelisted
+- Will remove a leaderboard run based on a Discord ID or Steam ID and will DM the user to let them know that their run has been removed from the leaderboard. Make sure when choosing, you put an option for either SteamID or DiscordID so the bot will know what to look for, then select player_id for SteamID or discord_user for a user who is already whitelisted
 
 Command Name `/serverembed`
-- This command creates a server embed (up to 5 servers) using invite links. Numbered inputs map to each server, and the embed shows slot types, server time, weather, and a join link, with customizable color and thumbnail.
+- This command creates a server embed (up to 5 servers) using invite links. Numbered inputs map to each server, and the embed shows slot types, server time, weather, and a join link, with customizable color and thumbnail
 
 Command Name `/enablewelcome`&`/welcomeset` 
 - Enablewelocome will enable the command for and start sending welcome messages to new users to the server, welcomeset will allow you to move the channel you want the welcome messages
 
 Command Name `/ban_user`
-- Allows you to ban a user on multiple servers through the blacklist.txt with just the SteamID
+- Adds a user to the blacklist.txt by inputing there SteamID
 
-Command Name `/bannedlist`
+Name `/bannedlist`
 - Shows all banned SteamID's
 
 Command Name `/blacklist_remove`
-- Remove a user from the blacklist
+- Remove a user from the blacklist (being banned)
 
 Command Name `/appeals`
 - Create the appeals embed in a channel of your choice
 
 Command Name `/timeout`
-- Will timeout a user for how long you want (#h #m #s format Ex: 1h 10m 20s)
+- Timeout's a user for how long you want (#h #m #s format Ex: 1h 10m 20s)
 
 Command Name `/removestrike`
-- Will remove the # of strikes you choose for the user
+- Remove the # of strikes you choose for the user
 
 Command Name `/load_cog`
 - Will load any cog that is not loaded at the start of the bot (If you mass load the cogs, you will get rate-limited; this is nothing to worry about, it will go away once everything has loaded)
 
 Command Name `/reload_cog `
-- Will allow you to refresh a cog if something isn't working
+- Will allow you to refresh a cog if edits have been made
 
 Command Name `/unload_cog`
-- Will unload a cog, helpful for commands not used much, to reduce bot traffic
+- Unload a cog, helpful for commands not used much, to reduce bot traffic
 
 Command Name `/removettimeout`
 - Will remove the timeout of a user and allow you to choose if you want to remove a strike or not
 
 Command Name `/Whitelist`
-- With V0.4 this command is now working! The /whitelist command will allow you to create an embed in any channel you like, allowing users to whitelist to a whitelist.db that will allow role updating and more
+- With V0.4, this command is now working! The /whitelist command will allow you to create an embed in any channel you like, allowing users to whitelist to your own whitelist.db that holds users' SteamIDs connected to their DiscordID, roles, and total # of attempts. Once a user whitelists, they will be connected to your database, which allows automatic role additions for leaderboard scores, VIP whitelisting on servers, and a lot more tracking for server Admins in discord. 
 
 Command Name `/server_status` & `/deletecounter`
 - Allows you to create a tracker for the total number of people in the server and your Staff online./deletecounter will delete the counter of your choice
@@ -210,14 +210,14 @@ Command Name `/setlogchannel`
 Command Name `/showsteamusers`
 - Creates an embed that shows all the users connected to the database, listing out the Discord account connected to the SteamID
 
-Command Name `/sync_whitelist `
-- Will take your hub.db and move all the users previously whitelisted to that to your whitelist.db
+Command Name `/sync_whitelist`
+- Transfers all users from your hub.db and moves them to your whitelist.db
 
 Command Name `/updaterequirementscore`
 - Allows you to set a new score for a Tier, so if you wanted to update Whiteline from 1 million points to 2 million, you would put /updaterequirementscore tier:Whiteline score:2M
 
 Command Name `/ticketbuilder `
-- Sets the Channel where you want to put the ticket drop-down
+- Sets the Channel where you want to put the ticket drop-down/embed
 
 
 # ✨ Customize
