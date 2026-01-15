@@ -138,7 +138,9 @@ For `UBUNTU` servers
 python3 bot.py
 ```
 
-Normally, it start spitting out a few things, "connecting using a static token" connected to "bot user name" and a few other things. If you see that everything is in order, you should be good to go. If you are running the bot for the first time, there will be a few errors as it creates the initial .json files. I recommend restarting the bot after a few minutes so it can run with all the .json files and the whitelist.db created. It should be smooth from there.
+Normally, the bot will start and spit out a few things: "connecting using a static token" connected to "bot user name", and a few other things. If you see that everything is in order, you should be good to go. 
+**If you are running the bot for the first time**
+There will be a few errors as it creates the initial .json files. I recommend restarting the bot after a few minutes so it can run with all the .json files and the whitelist.db created. It should be smooth from there.
 
 # 📝 Commands
 Command Name `/leaderboard`
@@ -196,7 +198,7 @@ Command Name `/removettimeout`
 - Will remove the timeout of a user and allow you to choose if you want to remove a strike or not
 
 Command Name `/Whitelist`
-- With V0.4, this command is now working! The /whitelist command will allow you to create an embed in any channel you like, allowing users to whitelist to your own whitelist.db that holds users' SteamIDs connected to their DiscordID, roles, and total # of attempts. Once a user whitelists, they will be connected to your database, which allows automatic role additions for leaderboard scores, VIP whitelisting on servers, and a lot more tracking for server Admins in discord. 
+- With V0.4, this command is now working! The /whitelist command will allow you to create an embed in any channel you like, allowing users to whitelist to your own whitelist.db that holds users' SteamIDs connected to their DiscordID, roles, and total # of attempts. Once a user whitelists, they will be connected to your database, which allows automatic role additions for leaderboard scores, VIP whitelisting on servers, and a lot more tracking for server Admins in discord
 
 Command Name `/server_status` & `/deletecounter`
 - Allows you to create a tracker for the total number of people in the server and your Staff online./deletecounter will delete the counter of your choice
